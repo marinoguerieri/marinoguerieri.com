@@ -1,4 +1,4 @@
-# marinoguerieri.com
+# [marinoguerieri.com](https://marinoguerieri.com)
 
 Hi, I'm Marino Guerieri, a web developer and this is my personal website based on [Gatsby + Netlify CMS starter template](https://github.com/netlify-templates/gatsby-starter-netlify-cms).
 

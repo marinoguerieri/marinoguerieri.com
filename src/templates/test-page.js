@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../img/mg-logo.svg';
+import logo from '../img/mg-logo-transparent.svg';
 
 import { makeStyles } from '@material-ui/core/styles';
 

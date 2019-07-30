@@ -170,7 +170,6 @@ const MG = {
   ),
 
   SimplePopover: () => {
-    const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {
@@ -203,32 +202,32 @@ const MG = {
             horizontal: 'center',
           }}
         >
-          <Typography className={classes.typography}>
-            The content of the Popover.
-          </Typography>
+          <Typography>The content of the Popover.</Typography>
         </Popover>
       </div>
     );
   },
+
+  Theme: props => {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#ffffff',
+        },
+        secondary: {
+          main: '#333333',
+        },
+      },
+    });
+
+    return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+  },
 };
 
 export const IndexPageTemplate = () => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#ffffff',
-      },
-      secondary: {
-        main: '#333333',
-      },
-    },
-  });
-
-  const [value, setValue] = React.useState(0);
-
   return (
     /* Box should fill the whole window, thus height=100vh */
-    <ThemeProvider theme={theme}>
+    <MG.Theme>
       <Box bgcolor='primary.light' height='100vh'>
         <Container style={{ paddingTop: 20 }}>
           <MG.PinnedOrOthers isPinned />
@@ -239,7 +238,7 @@ export const IndexPageTemplate = () => {
 
         <MG.BottomAppBar />
       </Box>
-    </ThemeProvider>
+    </MG.Theme>
   );
 };
 

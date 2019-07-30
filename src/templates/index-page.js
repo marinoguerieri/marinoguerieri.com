@@ -26,45 +26,204 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import Popover from '@material-ui/core/Popover';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#ffffff',
-    },
-    secondary: {
-      main: '#333333',
-    },
-  },
-});
+const MG = {
+  FirstPost: () => (
+    <Paper style={{ padding: 0 }}>
+      {/* <img
+                src={guyImg}
+                style={{
+                  width: '20%',
+                  height: 'auto',
+                  float: 'right',
+                  borderRadius: 17,
+                }}
+              ></img> */}
+      <Box
+        style={{
+          height: 200,
+          backgroundImage: `url(${guyImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <Typography variant='h6'>HELLO</Typography>
+      </Box>
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+      <Typography variant='body1' align='justify'>
+        Hi, I’m Marino Guerieri, a web developer and tech support specialist
+        using HTML, CSS, WordPress, React. You can find more about me and my
+        work here.
+      </Typography>
+      <Typography variant='body1' align='justify'>
+        I’m a huge fan of sticky notes and this website draws inspiration upon
+        it. Please use navigation to explore the topics.
+      </Typography>
+      <Grid container>
+        <Grid item xs={8}>
+          <Button variant='outlined'>ABOUT ME</Button>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography variant='body2' align='right'>
+            2019/08/11
+          </Typography>
+        </Grid>
+      </Grid>
+    </Paper>
+  ),
+  SecondPost: () => (
+    <Paper style={{ padding: 10 }}>
+      <Typography variant='h6'>HELLO</Typography>
+      {/* <Button>HELLO</Button> */}
+      <img
+        src={guyImg}
+        style={{
+          width: '20%',
+          height: 'auto',
+          float: 'right',
+          borderRadius: '20px',
+        }}
+      ></img>
+      <Typography variant='body1' align='justify'>
+        Hi, I’m Marino Guerieri, a web developer and tech support specialist
+        using HTML, CSS, WordPress, React. You can find more about me and my
+        work here.
+      </Typography>
+      <Typography variant='body1' align='justify'>
+        I’m a huge fan of sticky notes and this website draws inspiration upon
+        it. Please use navigation to explore the topics.
+      </Typography>
+      <Grid container>
+        <Grid item xs={8}>
+          <Button variant='outlined'>ABOUT ME</Button>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography variant='body2' align='right'>
+            2019/08/11
+          </Typography>
+        </Grid>
+      </Grid>
+    </Paper>
+  ),
+
+  BottomAppBar: () => {
+    const useStyles = makeStyles(theme => ({
+      title: {
+        flexGrow: 1,
+      },
+      appBar: {
+        top: 'auto',
+        bottom: 0,
+      },
+      grow: {
+        flexGrow: 1,
+      },
+      fabButton: {
+        position: 'absolute',
+        zIndex: 1,
+        top: -30,
+        right: 50,
+      },
+    }));
+
+    const classes = useStyles();
+
+    return (
+      <AppBar position='fixed' color='primary' className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            color='inherit'
+            style={{
+              padding: 5,
+            }}
+          >
+            <Avatar
+              alt='Marino Guereri'
+              src={logo}
+              style={{
+                width: 50,
+                height: 'auto',
+              }}
+            />
+          </IconButton>
+          <Typography variant='h5' className={classes.title}>
+            Marino Guerieri
+          </Typography>
+          <Fab
+            color='primary.dark'
+            aria-label='add'
+            className={classes.fabButton}
+          >
+            <MenuIcon />
+          </Fab>
+        </Toolbar>
+      </AppBar>
+    );
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+
+  PinnedOrOthers: props => (
+    /* By default returns 'Others', unless isPinned=true */
+    <Typography variant='body2' style={{ marginBottom: 5 }}>
+      {props.isPinned ? 'PINNED' : 'OTHERS'}
+    </Typography>
+  ),
+
+  SimplePopover: () => {
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    function handleClick(event) {
+      setAnchorEl(event.currentTarget);
+    }
+
+    function handleClose() {
+      setAnchorEl(null);
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    return (
+      <div>
+        <Button aria-describedby={id} variant='contained' onClick={handleClick}>
+          Open Popover
+        </Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Typography className={classes.typography}>
+            The content of the Popover.
+          </Typography>
+        </Popover>
+      </div>
+    );
   },
-  title: {
-    flexGrow: 1,
-  },
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  fabButton: {
-    position: 'absolute',
-    zIndex: 1,
-    top: -30,
-    right: 50,
-  },
-}));
+};
 
 export const IndexPageTemplate = () => {
-  const classes = useStyles();
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#ffffff',
+      },
+      secondary: {
+        main: '#333333',
+      },
+    },
+  });
+
   const [value, setValue] = React.useState(0);
 
   return (
@@ -72,127 +231,19 @@ export const IndexPageTemplate = () => {
     <ThemeProvider theme={theme}>
       <Box bgcolor='primary.light' height='100vh'>
         <Container style={{ paddingTop: 20 }}>
-          <Typography variant='body2' style={{ marginBottom: 5 }}>
-            PINNED
-          </Typography>
-          <Paper style={{ padding: 0 }}>
-            {/* <img
-              src={guyImg}
-              style={{
-                width: '20%',
-                height: 'auto',
-                float: 'right',
-                borderRadius: 17,
-              }}
-            ></img> */}
-            <Box
-              style={{
-                height: 200,
-                backgroundImage: `url(${guyImg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <Typography variant='h6'>HELLO</Typography>
-            </Box>
-
-            <Typography variant='body1' align='justify'>
-              Hi, I’m Marino Guerieri, a web developer and tech support
-              specialist using HTML, CSS, WordPress, React. You can find more
-              about me and my work here.
-            </Typography>
-            <Typography variant='body1' align='justify'>
-              I’m a huge fan of sticky notes and this website draws inspiration
-              upon it. Please use navigation to explore the topics.
-            </Typography>
-            <Grid container>
-              <Grid item xs={8}>
-                <Button variant='outlined'>ABOUT ME</Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant='body2' align='right'>
-                  2019/08/11
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-          <Typography variant='body2' style={{ marginBottom: 5 }}>
-            OTHERS
-          </Typography>
-          <Paper style={{ padding: 10 }}>
-            <Typography variant='h6'>HELLO</Typography>
-            {/* <Button>HELLO</Button> */}
-            <img
-              src={guyImg}
-              style={{
-                width: '20%',
-                height: 'auto',
-                float: 'right',
-                borderRadius: '20px',
-              }}
-            ></img>
-            <Typography variant='body1' align='justify'>
-              Hi, I’m Marino Guerieri, a web developer and tech support
-              specialist using HTML, CSS, WordPress, React. You can find more
-              about me and my work here.
-            </Typography>
-            <Typography variant='body1' align='justify'>
-              I’m a huge fan of sticky notes and this website draws inspiration
-              upon it. Please use navigation to explore the topics.
-            </Typography>
-            <Grid container>
-              <Grid item xs={8}>
-                <Button variant='outlined'>ABOUT ME</Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant='body2' align='right'>
-                  2019/08/11
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
+          <MG.PinnedOrOthers isPinned />
+          <MG.FirstPost />
+          <MG.PinnedOrOthers />
+          <MG.SecondPost />
         </Container>
 
-        <AppBar position='fixed' color='primary' className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color='inherit'
-              style={{
-                padding: 5,
-              }}
-            >
-              <Avatar
-                alt='Marino Guereri'
-                src={logo}
-                style={{
-                  width: 50,
-                  height: 'auto',
-                }}
-              />
-            </IconButton>
-            <Typography variant='h5' className={classes.title}>
-              Marino Guerieri
-            </Typography>
-            <Fab
-              color='primary.dark'
-              aria-label='add'
-              className={classes.fabButton}
-            >
-              <MenuIcon />
-            </Fab>
-          </Toolbar>
-        </AppBar>
+        <MG.BottomAppBar />
       </Box>
     </ThemeProvider>
   );
 };
 
 class IndexPage extends Component {
-  componentWillMount = () => {
-    // /* Apply styles to body */
-    // document.body.style.backgroundColor = 'green';
-  };
-
   render = () => <IndexPageTemplate />;
 }
 

@@ -6,8 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import PersonIcon from '@material-ui/icons/PersonOutlined';
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
+import WorkIcon from '@material-ui/icons/WorkOutline';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
 import Avatar from '@material-ui/core/Avatar';
 import logo from '../img/mg-logo-transparent.svg';
 import guyImg from '../img/guy.jpg';
@@ -20,7 +22,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeIcon from '@material-ui/icons/HomeOutlined';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Paper from '@material-ui/core/Paper';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -145,7 +147,7 @@ class MG_Post extends Component {
   }
 }
 
-const MG_MenuItem = () => (
+const MG_MenuItem = props => (
   <Button
     style={{
       width: '100%',
@@ -166,9 +168,15 @@ const MG_MenuItem = () => (
       }}
     >
       <Box>
-        <HomeIcon style={{ width: '50%', height: 'auto' }} />
+        {/* <HomeIcon style={{ width: '50%', height: 'auto' }} /> */}
+        {React.createElement(props.icon, {
+          style: {
+            width: '50%',
+            height: 'auto',
+          },
+        })}
         <br />
-        Homepage
+        {props.text}
       </Box>
     </Box>
   </Button>
@@ -315,21 +323,23 @@ export const IndexPageTemplate = () => {
       <MG.Theme>
         <Box bgcolor='primary.light' height='100vh'>
           {/* Menu */}
-          <Container style={{ paddingTop: 20 }}>
+          <Container
+            style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}
+          >
             <Paper>
               <Typography variant='body1'>Pages</Typography>
               <Grid container spacing={2}>
                 <Grid item xs={3}>
-                  <MG_MenuItem />
+                  <MG_MenuItem text='Homepage' icon={HomeIcon} />
                 </Grid>
                 <Grid item xs={3}>
-                  <MG_MenuItem />
+                  <MG_MenuItem text='About Me' icon={PersonIcon} />
                 </Grid>
                 <Grid item xs={3}>
-                  <MG_MenuItem />
+                  <MG_MenuItem text='Portfolio' icon={WorkIcon} />
                 </Grid>
                 <Grid item xs={3}>
-                  <MG_MenuItem />
+                  <MG_MenuItem text='Blog' icon={CollectionsBookmarkIcon} />
                 </Grid>
               </Grid>
             </Paper>

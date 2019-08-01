@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import LabelIcon from '@material-ui/icons/LabelOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
 import WorkIcon from '@material-ui/icons/WorkOutline';
@@ -339,6 +340,7 @@ export const IndexPageTemplate = () => {
           <Container
             style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}
           >
+            {/* Pages */}
             <MG_MenuSection
               title='Pages'
               items={[
@@ -348,6 +350,27 @@ export const IndexPageTemplate = () => {
                 { title: 'Blog', icon: CollectionsBookmarkIcon },
               ]}
             />
+
+            <br />
+            {/* Topics */}
+            <MG_MenuSection
+              title='Topics'
+              items={[
+                { title: 'React', icon: LabelIcon },
+                { title: 'Wordpress', icon: LabelIcon },
+                { title: 'SEO', icon: LabelIcon },
+                { title: 'Joomla', icon: LabelIcon },
+                { title: 'Plugins', icon: LabelIcon },
+                { title: 'PHP', icon: LabelIcon },
+                { title: 'JS', icon: LabelIcon },
+                { title: 'ELementor', icon: LabelIcon },
+                { title: 'JSX', icon: LabelIcon },
+                { title: 'Hardware', icon: LabelIcon },
+                { title: 'Software', icon: LabelIcon },
+                { title: 'Drupal', icon: LabelIcon },
+              ]}
+            />
+
             {/* <Paper>
               <Typography variant='body1'>Pages</Typography>
               <Grid container spacing={2}>

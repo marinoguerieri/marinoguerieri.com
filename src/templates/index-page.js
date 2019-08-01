@@ -182,6 +182,19 @@ const MG_MenuItem = props => (
   </Button>
 );
 
+const MG_MenuSection = props => (
+  <Paper>
+    <Typography variant='body1'>{props.title}</Typography>
+    <Grid container spacing={2}>
+      {props.items.map(item => (
+        <Grid item xs={3}>
+          <MG_MenuItem text={item.title} icon={item.icon} />
+        </Grid>
+      ))}
+    </Grid>
+  </Paper>
+);
+
 const MG = {
   BottomAppBar: () => {
     const useStyles = makeStyles(theme => ({
@@ -326,7 +339,16 @@ export const IndexPageTemplate = () => {
           <Container
             style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}
           >
-            <Paper>
+            <MG_MenuSection
+              title='Pages'
+              items={[
+                { title: 'Homepage', icon: HomeIcon },
+                { title: 'About me', icon: PersonIcon },
+                { title: 'Portfolio', icon: WorkIcon },
+                { title: 'Blog', icon: CollectionsBookmarkIcon },
+              ]}
+            />
+            {/* <Paper>
               <Typography variant='body1'>Pages</Typography>
               <Grid container spacing={2}>
                 <Grid item xs={3}>
@@ -342,7 +364,7 @@ export const IndexPageTemplate = () => {
                   <MG_MenuItem text='Blog' icon={CollectionsBookmarkIcon} />
                 </Grid>
               </Grid>
-            </Paper>
+            </Paper> */}
           </Container>
 
           {/* Pages */}

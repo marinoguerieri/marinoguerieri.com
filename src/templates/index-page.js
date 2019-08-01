@@ -35,6 +35,7 @@ import Grid from '@material-ui/core/Grid';
 import Popover from '@material-ui/core/Popover';
 import uuidv4 from 'uuid/v4';
 import Card from '@material-ui/core/Card';
+import Badge from '@material-ui/core/Badge';
 
 const MyContext = React.createContext();
 
@@ -177,7 +178,7 @@ const MG_MenuItem = props => (
           },
         })}
         <br />
-        {props.text}
+        {props.text} ({props.count})
       </Box>
     </Box>
   </Button>
@@ -189,7 +190,7 @@ const MG_MenuSection = props => (
     <Grid container spacing={2}>
       {props.items.map(item => (
         <Grid item xs={3}>
-          <MG_MenuItem text={item.title} icon={item.icon} />
+          <MG_MenuItem text={item.title} icon={item.icon} count={item.count} />
         </Grid>
       ))}
     </Grid>
@@ -356,18 +357,18 @@ export const IndexPageTemplate = () => {
             <MG_MenuSection
               title='Topics'
               items={[
-                { title: 'React', icon: LabelIcon },
-                { title: 'Wordpress', icon: LabelIcon },
-                { title: 'SEO', icon: LabelIcon },
-                { title: 'Joomla', icon: LabelIcon },
-                { title: 'Plugins', icon: LabelIcon },
-                { title: 'PHP', icon: LabelIcon },
-                { title: 'JS', icon: LabelIcon },
-                { title: 'ELementor', icon: LabelIcon },
-                { title: 'JSX', icon: LabelIcon },
-                { title: 'Hardware', icon: LabelIcon },
-                { title: 'Software', icon: LabelIcon },
-                { title: 'Drupal', icon: LabelIcon },
+                { title: 'React', count: 31, icon: LabelIcon },
+                { title: 'Wordpress', count: 23, icon: LabelIcon },
+                { title: 'SEO', count: 43, icon: LabelIcon },
+                { title: 'Joomla', count: 53, icon: LabelIcon },
+                { title: 'Plugins', count: 1, icon: LabelIcon },
+                { title: 'PHP', count: 87, icon: LabelIcon },
+                { title: 'JS', count: 11, icon: LabelIcon },
+                { title: 'ELementor', count: 23, icon: LabelIcon },
+                { title: 'JSX', count: 43, icon: LabelIcon },
+                { title: 'Hardware', count: 11, icon: LabelIcon },
+                { title: 'Software', count: 8, icon: LabelIcon },
+                { title: 'Drupal', count: 6, icon: LabelIcon },
               ]}
             />
 

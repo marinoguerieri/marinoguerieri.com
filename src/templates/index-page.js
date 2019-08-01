@@ -20,6 +20,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import HomeIcon from '@material-ui/icons/Home';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Paper from '@material-ui/core/Paper';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -30,6 +31,7 @@ import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Popover from '@material-ui/core/Popover';
 import uuidv4 from 'uuid/v4';
+import Card from '@material-ui/core/Card';
 
 const MyContext = React.createContext();
 
@@ -142,6 +144,35 @@ class MG_Post extends Component {
     );
   }
 }
+
+const MG_MenuItem = () => (
+  <Button
+    style={{
+      width: '100%',
+      paddingTop: '100%',
+    }}
+    variant='contained'
+    color='primary'
+  >
+    <Box
+      style={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Box>
+        <HomeIcon style={{ width: '50%', height: 'auto' }} />
+        <br />
+        Homepage
+      </Box>
+    </Box>
+  </Button>
+);
 
 const MG = {
   BottomAppBar: () => {
@@ -283,7 +314,29 @@ export const IndexPageTemplate = () => {
     <MyProvider>
       <MG.Theme>
         <Box bgcolor='primary.light' height='100vh'>
+          {/* Menu */}
           <Container style={{ paddingTop: 20 }}>
+            <Paper>
+              <Typography variant='body1'>Pages</Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={3}>
+                  <MG_MenuItem />
+                </Grid>
+                <Grid item xs={3}>
+                  <MG_MenuItem />
+                </Grid>
+                <Grid item xs={3}>
+                  <MG_MenuItem />
+                </Grid>
+                <Grid item xs={3}>
+                  <MG_MenuItem />
+                </Grid>
+              </Grid>
+            </Paper>
+          </Container>
+
+          {/* Pages */}
+          {/* <Container style={{ paddingTop: 20 }}>
             <MG.PinnedOrOthers isPinned />
             <MG_Post id={uuidv4()} />
             <MG.PinnedOrOthers />
@@ -291,7 +344,7 @@ export const IndexPageTemplate = () => {
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
-          </Container>
+          </Container> */}
 
           <MG.BottomAppBar />
         </Box>

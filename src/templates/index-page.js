@@ -36,6 +36,7 @@ import Popover from '@material-ui/core/Popover';
 import uuidv4 from 'uuid/v4';
 import Card from '@material-ui/core/Card';
 import Badge from '@material-ui/core/Badge';
+import Collapse from '@material-ui/core/Collapse';
 
 const MyContext = React.createContext();
 
@@ -184,18 +185,113 @@ const MG_MenuItem = props => (
   </Button>
 );
 
-const MG_MenuSection = props => (
-  <Paper>
-    <Typography variant='body1'>{props.title}</Typography>
-    <Grid container spacing={2}>
-      {props.items.map(item => (
-        <Grid item xs={3}>
-          <MG_MenuItem text={item.title} icon={item.icon} count={item.count} />
+class MG_MenuSection extends Component {
+  state = {
+    isExpanded: false,
+  };
+
+  toggleState = () => {
+    this.setState({ isExpanded: !this.state.isExpanded });
+  };
+
+  render = () => {
+    const menuItems = this.props.items.map(item => (
+      <MG_MenuItem text={item.title} icon={item.icon} count={item.count} />
+    ));
+
+    return (
+      <Paper>
+        <Typography variant='body1' style={{ float: 'left' }}>
+          {this.props.title}
+        </Typography>
+
+        {menuItems.length > 4 ? (
+          <Button onClick={() => this.toggleState()} style={{ float: 'right' }}>
+            {this.state.isExpanded ? 'Less' : 'More'}
+          </Button>
+        ) : (
+          <></>
+        )}
+
+        {/* <Grid container spacing={2}>
+        {props.items.map((item, indeks) => (
+          <Grid item xs={3}>
+            {indeks}
+            <MG_MenuItem text={item.title} icon={item.icon} count={item.count} />
+          </Grid>
+        ))}
+      </Grid> */}
+
+        {/* First 4 items (always shown) */}
+        <Grid container spacing={2}>
+          {menuItems.map((item, index) => {
+            if (index < 4)
+              return (
+                <Grid item xs={3}>
+                  {item}
+                </Grid>
+              );
+          })}
         </Grid>
-      ))}
-    </Grid>
-  </Paper>
-);
+
+        {/* Other items (collapsible) */}
+        <Collapse in={this.state.isExpanded}>
+          <Grid container spacing={2}>
+            {menuItems.map((item, index) => {
+              if (index > 4)
+                return (
+                  <Grid item xs={3}>
+                    {item}
+                  </Grid>
+                );
+            })}
+          </Grid>
+        </Collapse>
+
+        {/* </Grid> */}
+
+        {/* Manualno */}
+        {/* <Grid container spacing={2}>
+        <Grid item xs={3}>
+          <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+        </Grid>
+        <Grid item xs={3}>
+          <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+        </Grid>
+        <Grid item xs={3}>
+          <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+        </Grid>
+        <Grid item xs={3}>
+          <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+        </Grid>
+      </Grid>
+  
+      <Collapse in={true}>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+          <Grid item xs={3}>
+            <MG_MenuItem text='test' icon={MenuIcon} count={5} />
+          </Grid>
+        </Grid>
+      </Collapse> */}
+      </Paper>
+    );
+  };
+}
 
 const MG = {
   BottomAppBar: () => {

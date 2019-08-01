@@ -150,40 +150,43 @@ class MG_Post extends Component {
   }
 }
 
-const MG_MenuItem = props => (
-  <Button
-    style={{
-      width: '100%',
-      paddingTop: '100%',
-    }}
-    variant='contained'
-    color='primary'
-  >
-    <Box
+const MG_MenuItem = props => {
+  console.log('item props: ', props);
+  return (
+    <Button
       style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 0,
-        display: 'flex',
-        alignItems: 'center',
+        width: '100%',
+        paddingTop: '100%',
       }}
+      variant='contained'
+      color='primary'
     >
-      <Box>
-        {/* <HomeIcon style={{ width: '50%', height: 'auto' }} /> */}
-        {React.createElement(props.icon, {
-          style: {
-            width: '50%',
-            height: 'auto',
-          },
-        })}
-        <br />
-        {props.text} ({props.count})
+      <Box
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Box>
+          {/* <HomeIcon style={{ width: '50%', height: 'auto' }} /> */}
+          {React.createElement(props.icon, {
+            style: {
+              width: '50%',
+              height: 'auto',
+            },
+          })}
+          <br />
+          {props.text} {props.shouldShowCount ? `(${props.count})` : ''}
+        </Box>
       </Box>
-    </Box>
-  </Button>
-);
+    </Button>
+  );
+};
 
 class MG_MenuSection extends Component {
   state = {
@@ -196,7 +199,12 @@ class MG_MenuSection extends Component {
 
   render = () => {
     const menuItems = this.props.items.map(item => (
-      <MG_MenuItem text={item.title} icon={item.icon} count={item.count} />
+      <MG_MenuItem
+        text={item.title}
+        icon={item.icon}
+        shouldShowCount={this.props.shouldShowCount}
+        count={item.count}
+      />
     ));
 
     return (
@@ -452,6 +460,7 @@ export const IndexPageTemplate = () => {
             {/* Topics */}
             <MG_MenuSection
               title='Topics'
+              shouldShowCount={true}
               items={[
                 { title: 'React', count: 31, icon: LabelIcon },
                 { title: 'Wordpress', count: 23, icon: LabelIcon },

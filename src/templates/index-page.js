@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import Avatar from '@material-ui/core/Avatar';
 import logo from '../img/mg-logo-transparent.svg';
 import guyImg from '../img/guy.jpg';
@@ -27,11 +29,55 @@ import Fab from '@material-ui/core/Fab';
 import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Popover from '@material-ui/core/Popover';
+import uuidv4 from 'uuid/v4';
 
-const MG = {
-  FirstPost: () => (
-    <Paper style={{ padding: 0 }}>
-      {/* <img
+const MyContext = React.createContext();
+
+class MyProvider extends Component {
+  state = {
+    isPostBeingRead: false,
+    postBeingReadId: null,
+  };
+
+  updateState = newState => {
+    this.setState(newState);
+  };
+
+  render() {
+    return (
+      <MyContext.Provider
+        value={{ state: this.state, updateState: this.updateState }}
+      >
+        {this.props.children}
+      </MyContext.Provider>
+    );
+  }
+}
+
+class MG_Post extends Component {
+  // state = {
+  //   isBeingRead: false,
+  // };
+
+  // handleClick = event => {
+  //   this.setState({
+  //     isBeingRead: true,
+  //   });
+  // };
+
+  // readPost = () => {
+  //   this.setState({ isBeingRead: true });
+  //   // console.log('v4 ', uuidv4());
+  //   console.log('id:', this.props.id);
+  //   // () => value.updateState({ isPostBeingRead: true })
+  // };
+
+  render() {
+    return (
+      <MyContext.Consumer>
+        {value => (
+          <Paper style={{ padding: 0 }}>
+            {/* <img
                 src={guyImg}
                 style={{
                   width: '20%',
@@ -40,73 +86,64 @@ const MG = {
                   borderRadius: 17,
                 }}
               ></img> */}
-      <Box
-        style={{
-          height: 200,
-          backgroundImage: `url(${guyImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <Typography variant='h6'>HELLO</Typography>
-      </Box>
+            <Box
+              style={{
+                height: 200,
+                backgroundImage: `url(${guyImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              onClick={() => {
+                value.updateState({
+                  isPostBeingRead: true,
+                  postBeingReadId: this.props.id,
+                });
+              }}
+            >
+              <Typography variant='h6'>HELLO</Typography>
+            </Box>
+            <Typography variant='body1' align='justify'>
+              Hi, I’m Marino Guerieri, a web developer and tech support
+              specialist using HTML, CSS, WordPress, React. You can find more
+              about me and my work here.
+            </Typography>
+            <Typography variant='body1' align='justify'>
+              I’m a huge fan of sticky notes and this website draws inspiration
+              upon it. Please use navigation to explore the topics.
+            </Typography>
+            <Grid container>
+              <Grid item xs={8}>
+                <Button variant='outlined'>ABOUT ME</Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant='body2' align='right'>
+                  2019/08/11
+                </Typography>
+              </Grid>
+            </Grid>
+            {value.state.isPostBeingRead &&
+            value.state.postBeingReadId == this.props.id ? (
+              <Paper elevation={8}>
+                <Box
+                  style={{
+                    width: '50vw',
+                    height: '50vh',
+                  }}
+                >
+                  Single post contents<div style={{ height: 1000 }}></div>
+                </Box>
+              </Paper>
+            ) : (
+              <></>
+            )}
+          </Paper>
+        )}
+      </MyContext.Consumer>
+    );
+  }
+}
 
-      <Typography variant='body1' align='justify'>
-        Hi, I’m Marino Guerieri, a web developer and tech support specialist
-        using HTML, CSS, WordPress, React. You can find more about me and my
-        work here.
-      </Typography>
-      <Typography variant='body1' align='justify'>
-        I’m a huge fan of sticky notes and this website draws inspiration upon
-        it. Please use navigation to explore the topics.
-      </Typography>
-      <Grid container>
-        <Grid item xs={8}>
-          <Button variant='outlined'>ABOUT ME</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='body2' align='right'>
-            2019/08/11
-          </Typography>
-        </Grid>
-      </Grid>
-    </Paper>
-  ),
-  SecondPost: () => (
-    <Paper style={{ padding: 10 }}>
-      <Typography variant='h6'>HELLO</Typography>
-      {/* <Button>HELLO</Button> */}
-      <img
-        src={guyImg}
-        style={{
-          width: '20%',
-          height: 'auto',
-          float: 'right',
-          borderRadius: '20px',
-        }}
-      ></img>
-      <Typography variant='body1' align='justify'>
-        Hi, I’m Marino Guerieri, a web developer and tech support specialist
-        using HTML, CSS, WordPress, React. You can find more about me and my
-        work here.
-      </Typography>
-      <Typography variant='body1' align='justify'>
-        I’m a huge fan of sticky notes and this website draws inspiration upon
-        it. Please use navigation to explore the topics.
-      </Typography>
-      <Grid container>
-        <Grid item xs={8}>
-          <Button variant='outlined'>ABOUT ME</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant='body2' align='right'>
-            2019/08/11
-          </Typography>
-        </Grid>
-      </Grid>
-    </Paper>
-  ),
-
+const MG = {
   BottomAppBar: () => {
     const useStyles = makeStyles(theme => ({
       title: {
@@ -130,35 +167,51 @@ const MG = {
     const classes = useStyles();
 
     return (
-      <AppBar position='fixed' color='primary' className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color='inherit'
-            style={{
-              padding: 5,
-            }}
-          >
-            <Avatar
-              alt='Marino Guereri'
-              src={logo}
-              style={{
-                width: 50,
-                height: 'auto',
-              }}
-            />
-          </IconButton>
-          <Typography variant='h5' className={classes.title}>
-            Marino Guerieri
-          </Typography>
-          <Fab
-            color='primary.dark'
-            aria-label='add'
-            className={classes.fabButton}
-          >
-            <MenuIcon />
-          </Fab>
-        </Toolbar>
-      </AppBar>
+      <MyContext.Consumer>
+        {value => (
+          <AppBar position='fixed' color='primary' className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color='inherit'
+                style={{
+                  padding: 5,
+                }}
+              >
+                <Avatar
+                  alt='Marino Guereri'
+                  src={logo}
+                  style={{
+                    width: 50,
+                    height: 'auto',
+                  }}
+                />
+              </IconButton>
+              <Typography variant='h5' className={classes.title}>
+                Marino Guerieri
+              </Typography>
+              <Fab
+                onClick={() => {
+                  if (value.state.isPostBeingRead) {
+                    // Close the post
+                    value.updateState({
+                      isPostBeingRead: false,
+                      postBeingReadId: null,
+                    });
+                  } else {
+                    // Open menu
+                    // ...
+                  }
+                }}
+                color='primary'
+                aria-label='add'
+                className={classes.fabButton}
+              >
+                {value.state.isPostBeingRead ? <ArrowBackIcon /> : <MenuIcon />}
+              </Fab>
+            </Toolbar>
+          </AppBar>
+        )}
+      </MyContext.Consumer>
     );
   },
 
@@ -227,18 +280,23 @@ const MG = {
 export const IndexPageTemplate = () => {
   return (
     /* Box should fill the whole window, thus height=100vh */
-    <MG.Theme>
-      <Box bgcolor='primary.light' height='100vh'>
-        <Container style={{ paddingTop: 20 }}>
-          <MG.PinnedOrOthers isPinned />
-          <MG.FirstPost />
-          <MG.PinnedOrOthers />
-          <MG.SecondPost />
-        </Container>
+    <MyProvider>
+      <MG.Theme>
+        <Box bgcolor='primary.light' height='100vh'>
+          <Container style={{ paddingTop: 20 }}>
+            <MG.PinnedOrOthers isPinned />
+            <MG_Post id={uuidv4()} />
+            <MG.PinnedOrOthers />
+            <MG_Post id={uuidv4()} />
+            <MG_Post id={uuidv4()} />
+            <MG_Post id={uuidv4()} />
+            <MG_Post id={uuidv4()} />
+          </Container>
 
-        <MG.BottomAppBar />
-      </Box>
-    </MG.Theme>
+          <MG.BottomAppBar />
+        </Box>
+      </MG.Theme>
+    </MyProvider>
   );
 };
 

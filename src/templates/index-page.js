@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MessageOutlinedIcon from '@material-ui/icons/MessageOutlined';
 import LabelIcon from '@material-ui/icons/LabelOutlined';
+import SendIcon from '@material-ui/icons/SendOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
 import WorkIcon from '@material-ui/icons/WorkOutline';
@@ -38,6 +39,7 @@ import uuidv4 from 'uuid/v4';
 import Card from '@material-ui/core/Card';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
+import TextField from '@material-ui/core/TextField';
 
 import GithubIconImg from '../img/github-icon.svg';
 import LinkedInIconImg from '../img/linkedin-icon.png';
@@ -447,9 +449,89 @@ export const IndexPageTemplate = () => {
     <MyProvider>
       <MG.Theme>
         <Box bgcolor='primary.light' height='100vh'>
-          {/* Menu */}
+          {/* ----------------- CONTACT FORM -------------------*/}
           <Container
             style={{
+              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              paddingLeft: 10,
+              paddingRight: 10,
+              paddingTop: 20,
+            }}
+          >
+            <Paper
+              elevation={16}
+              square={false}
+              style={{
+                borderRadius: 50,
+                padding: 20,
+              }}
+            >
+              <Typography variant='h5'>
+                Feel free to leave me a message.
+              </Typography>
+
+              <Typography variant='body1'>
+                Just use the contact form below or contact me directly at
+                marino@marinoguerieri.com (it goes to my email inbox either way
+                :-)
+              </Typography>
+
+              <TextField
+                required
+                id='outlined-required'
+                label='Full Name'
+                margin='normal'
+                variant='outlined'
+              />
+              <br />
+              <TextField
+                required
+                id='outlined-required'
+                label='Email Adress'
+                margin='normal'
+                variant='outlined'
+              />
+              <br />
+              <TextField
+                id='outlined-required'
+                label='Company'
+                margin='normal'
+                variant='outlined'
+              />
+              <br />
+              <TextField
+                required
+                id='filled-multiline-flexible'
+                label='Message'
+                multiline
+                rowsMax='4'
+                margin='normal'
+                helperText='hello'
+                variant='filled'
+              />
+
+              <Typography variant='subtitle2'>
+                I’m aware that my personal data is being handled as described in
+                Privacy Policy.
+              </Typography>
+
+              <Button
+                variant='contained'
+                color='secondary'
+                size='large'
+                fullWidth={true}
+              >
+                <SendIcon />
+                Send
+              </Button>
+            </Paper>
+          </Container>
+          {/* ----------------- /CONTACT FORM -------------------*/}
+
+          {/* --------------------- MENU ------------------------*/}
+          <Container
+            style={{
+              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
               paddingLeft: 10,
               paddingRight: 10,
               paddingTop: 20,
@@ -506,28 +588,17 @@ export const IndexPageTemplate = () => {
               <MessageOutlinedIcon />
               Send me a message
             </Button>
-
-            {/* <Paper>
-              <Typography variant='body1'>Pages</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={3}>
-                  <MG_MenuItem text='Homepage' icon={HomeIcon} />
-                </Grid>
-                <Grid item xs={3}>
-                  <MG_MenuItem text='About Me' icon={PersonIcon} />
-                </Grid>
-                <Grid item xs={3}>
-                  <MG_MenuItem text='Portfolio' icon={WorkIcon} />
-                </Grid>
-                <Grid item xs={3}>
-                  <MG_MenuItem text='Blog' icon={CollectionsBookmarkIcon} />
-                </Grid>
-              </Grid>
-            </Paper> */}
           </Container>
+          {/* --------------------- /MENU ------------------------*/}
 
+          {/* -------------------- HOMEPAGE ----------------------*/}
           {/* Pages */}
-          {/* <Container style={{ paddingTop: 20 }}>
+          <Container
+            style={{
+              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              paddingTop: 20,
+            }}
+          >
             <MG.PinnedOrOthers isPinned />
             <MG_Post id={uuidv4()} />
             <MG.PinnedOrOthers />
@@ -535,7 +606,8 @@ export const IndexPageTemplate = () => {
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
-          </Container> */}
+          </Container>
+          {/* -------------------- /HOMEPAGE ---------------------*/}
 
           <MG.BottomAppBar />
         </Box>

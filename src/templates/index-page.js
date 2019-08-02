@@ -40,6 +40,7 @@ import Card from '@material-ui/core/Card';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
 import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
 
 import GithubIconImg from '../img/github-icon.svg';
 import LinkedInIconImg from '../img/linkedin-icon.png';
@@ -347,12 +348,12 @@ const MG = {
                   alt='Marino Guereri'
                   src={logo}
                   style={{
-                    width: 50,
+                    width: 40,
                     height: 'auto',
                   }}
                 />
               </IconButton>
-              <Typography variant='h5' className={classes.title}>
+              <Typography variant='h6' className={classes.title}>
                 Marino Guerieri
               </Typography>
               <Fab
@@ -471,12 +472,19 @@ export const IndexPageTemplate = () => {
               </Typography>
 
               <Typography variant='body1'>
-                Just use the contact form below or contact me directly at
-                marino@marinoguerieri.com (it goes to my email inbox either way
-                :-)
+                Just use the contact form below or contact me directly at&nbsp;
+                <Link
+                  href='mailto:marino@marinoguerieri.com'
+                  color='inherit'
+                  style={{ fontWeight: 500 }}
+                >
+                  marino@marinoguerieri.com
+                </Link>
+                &nbsp;(it goes to my email inbox either way :-)
               </Typography>
 
               <TextField
+                fullWidth
                 required
                 id='outlined-required'
                 label='Full Name'
@@ -485,6 +493,7 @@ export const IndexPageTemplate = () => {
               />
               <br />
               <TextField
+                fullWidth
                 required
                 id='outlined-required'
                 label='Email Adress'
@@ -493,6 +502,7 @@ export const IndexPageTemplate = () => {
               />
               <br />
               <TextField
+                fullWidth
                 id='outlined-required'
                 label='Company'
                 margin='normal'
@@ -500,11 +510,12 @@ export const IndexPageTemplate = () => {
               />
               <br />
               <TextField
+                fullWidth
                 required
                 id='filled-multiline-flexible'
                 label='Message'
                 multiline
-                rowsMax='4'
+                rows='4'
                 margin='normal'
                 helperText='hello'
                 variant='filled'

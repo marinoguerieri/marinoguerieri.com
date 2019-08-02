@@ -16,6 +16,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Avatar from '@material-ui/core/Avatar';
 import logo from '../img/mg-logo-transparent.svg';
 import guyImg from '../img/guy.jpg';
+import samplePostFeaturedImg from '../img/react-post.jpeg';
 import Box from '@material-ui/core/Box';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
@@ -453,7 +454,7 @@ export const IndexPageTemplate = () => {
           {/* ----------------- CONTACT FORM -------------------*/}
           <Container
             style={{
-              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
               paddingLeft: 10,
               paddingRight: 10,
               paddingTop: 20,
@@ -517,13 +518,12 @@ export const IndexPageTemplate = () => {
                 multiline
                 rows='4'
                 margin='normal'
-                helperText='hello'
-                variant='filled'
+                variant='outlined'
               />
 
               <Typography variant='subtitle2'>
-                I’m aware that my personal data is being handled as described in
-                Privacy Policy.
+                By sending this message, I consent to collection of personal
+                data as described in Privacy Policy.
               </Typography>
 
               <Button
@@ -602,7 +602,7 @@ export const IndexPageTemplate = () => {
           </Container>
           {/* --------------------- /MENU ------------------------*/}
 
-          {/* -------------------- HOMEPAGE ----------------------*/}
+          {/* -------------------- ARCHIVE -----------------------*/}
           {/* Pages */}
           <Container
             style={{
@@ -618,7 +618,101 @@ export const IndexPageTemplate = () => {
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
           </Container>
-          {/* -------------------- /HOMEPAGE ---------------------*/}
+          {/* -------------------- /ARCHIVE ---------------------*/}
+
+          {/* ------------------ SINGLE POST --------------------*/}
+          <Container
+            style={{
+              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              paddingLeft: 10,
+              paddingRight: 10,
+              paddingTop: 20,
+            }}
+          >
+            <Paper
+              elevation={16}
+              square={false}
+              style={{
+                borderRadius: 50,
+                height: '90vh',
+                overflow: 'auto',
+              }}
+            >
+              <Box
+                style={{
+                  padding: 20,
+                  backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url(${samplePostFeaturedImg})`,
+                  height: 300,
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  borderRadius: '50px 50px 0 0',
+                  // flex
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignContent: 'flex-end',
+                }}
+              >
+                <Box flexGrow={1}></Box>
+                <Typography
+                  variant='h5'
+                  style={
+                    {
+                      // paddingTop: 50,
+                      // backgroundColor: 'rgba(200,200,200,0.5)',
+                    }
+                  }
+                >
+                  REACT V654.2.3 IS COMING OUT!
+                </Typography>
+                <Typography variant='subtitle1'>2019/12/32</Typography>
+              </Box>
+
+              <Box style={{ padding: 20 }}>
+                <Typography variant='body1'>
+                  Today is the big day. New release of React is coming out and
+                  with that many new features that we will never use.
+                  &lt;SomeCode someProp=&rdquo;someValue&rdquo;&gt; is the new
+                  standard of writing code that makes no sense.
+                  <br />
+                  <br />
+                  if (newProp != oldProp) &lt;SomeOtherComponent&gt; React was
+                  created by Jordan Walke, a software engineer at Facebook, who
+                  released an early prototype of React called
+                  &quot;FaxJS&quot;.[9][10] He was influenced by XHP, an HTML
+                  component framework for PHP.[11] It was first deployed on
+                  Facebook's News Feed in 2011 and later on Instagram in 2012.
+                  [12] It was open-sourced at JSConf US in May 2013. [10] React
+                  Native, which enables native Android, iOS, and UWP development
+                  with React, was announced at Facebook's React Conf in February
+                  2015 and open-sourced in March 2015.
+                  <br />
+                  <br />
+                  On April 18, 2017, Facebook announced React Fiber, a new core
+                  algorithm of React framework library for building user
+                  interfaces.[13] React Fiber was to become the foundation of
+                  any future improvements and feature development of the React
+                  framework. [14][needs update] On April 19, 2017, React 360
+                  V1.0.0 was released to the public.[15] This allowed developers
+                  with React experience to jump into virtual reality
+                  development.
+                  <br />
+                  <br />
+                  On September 26, 2017, React 16.0 was released to the
+                  public.[16] On February 16, 2019, React 16.8 was released to
+                  the public.[17] The release introduced React Hooks. [18].
+                  That&rsquo;s it.
+                </Typography>
+                <br />
+                <br />
+                <Button>BLOG</Button>
+                <Button>REACT</Button>
+              </Box>
+            </Paper>
+            {/* Add some space */}
+            <Box height='100px'></Box>
+          </Container>
+          {/* ------------------ /SINGLE POST -------------------*/}
 
           <MG.BottomAppBar />
         </Box>

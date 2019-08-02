@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import MessageOutlinedIcon from '@material-ui/icons/MessageOutlined';
 import LabelIcon from '@material-ui/icons/LabelOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
@@ -84,23 +85,6 @@ class MyProvider extends Component {
 }
 
 class MG_Post extends Component {
-  // state = {
-  //   isBeingRead: false,
-  // };
-
-  // handleClick = event => {
-  //   this.setState({
-  //     isBeingRead: true,
-  //   });
-  // };
-
-  // readPost = () => {
-  //   this.setState({ isBeingRead: true });
-  //   // console.log('v4 ', uuidv4());
-  //   console.log('id:', this.props.id);
-  //   // () => value.updateState({ isPostBeingRead: true })
-  // };
-
   render() {
     return (
       <MyContext.Consumer>
@@ -173,7 +157,6 @@ class MG_Post extends Component {
 }
 
 const MG_MenuItem = props => {
-  console.log('item icon: ', props.icon);
   return (
     <Button
       style={{
@@ -209,41 +192,47 @@ const MG_MenuItem = props => {
   );
 };
 
-class MG_MenuSection extends Component {
-  state = {
-    isExpanded: false,
+const MG_MenuSection = props => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleIsExpanded = () => {
+    setIsExpanded(!isExpanded);
   };
 
-  toggleState = () => {
-    this.setState({ isExpanded: !this.state.isExpanded });
-  };
+  const useStyles = makeStyles(theme => ({
+    root: {
+      marginBottom: theme.spacing(4),
+    },
+  }));
+  const classes = useStyles();
 
-  render = () => {
-    const menuItems = this.props.items.map(item => (
+  const menuItemsOnGrid = props.items.map(item => (
+    <Grid key={uuidv4()} item xs={3}>
       <MG_MenuItem
         key={uuidv4()}
         text={item.title}
         icon={item.icon}
-        shouldShowCount={this.props.shouldShowCount}
+        shouldShowCount={props.shouldShowCount}
         count={item.count}
       />
-    ));
+    </Grid>
+  ));
 
-    return (
-      <Paper>
-        <Typography variant='body1' style={{ float: 'left' }}>
-          {this.props.title}
-        </Typography>
+  return (
+    <Paper elevation={4} className={classes.root}>
+      <Typography variant='body1' style={{ float: 'left' }}>
+        {props.title}
+      </Typography>
 
-        {menuItems.length > 4 ? (
-          <Button onClick={() => this.toggleState()} style={{ float: 'right' }}>
-            {this.state.isExpanded ? 'Less' : 'More'}
-          </Button>
-        ) : (
-          <></>
-        )}
+      {menuItemsOnGrid.length > 4 ? (
+        <Button onClick={() => toggleIsExpanded()} style={{ float: 'right' }}>
+          {isExpanded ? 'Less' : 'More'}
+        </Button>
+      ) : (
+        <></>
+      )}
 
-        {/* <Grid container spacing={2}>
+      {/* <Grid container spacing={2}>
         {props.items.map((item, indeks) => (
           <Grid item xs={3}>
             {indeks}
@@ -252,38 +241,32 @@ class MG_MenuSection extends Component {
         ))}
       </Grid> */}
 
-        {/* First 4 items (always shown) */}
+      {/* First 4 items (always shown) */}
+      <Grid container spacing={2}>
+        {menuItemsOnGrid.map((item, index) => {
+          if (index < 4) return item;
+          /* We need to return something and it needs to have a key,
+            otherwise there will be a warning */ else
+            return <React.Fragment key={uuidv4()}></React.Fragment>;
+        })}
+      </Grid>
+
+      {/* Other items (collapsible) */}
+      <Collapse in={isExpanded}>
         <Grid container spacing={2}>
-          {menuItems.map((item, index) => {
-            if (index < 4)
-              return (
-                <Grid key={uuidv4()} item xs={3}>
-                  {item}
-                </Grid>
-              );
-            else return <></>;
+          {/* Added empty row to retain row spacing (appearance of continuity) */}
+          <Grid item xs={12}></Grid>
+          {menuItemsOnGrid.map((item, index) => {
+            if (index > 4) return item;
+            else return <React.Fragment key={uuidv4()}></React.Fragment>;
           })}
         </Grid>
+      </Collapse>
 
-        {/* Other items (collapsible) */}
-        <Collapse in={this.state.isExpanded}>
-          <Grid container spacing={2}>
-            {menuItems.map((item, index) => {
-              if (index > 4)
-                return (
-                  <Grid key={uuidv4()} item xs={3}>
-                    {item}
-                  </Grid>
-                );
-              else return <></>;
-            })}
-          </Grid>
-        </Collapse>
+      {/* </Grid> */}
 
-        {/* </Grid> */}
-
-        {/* Manualno */}
-        {/* <Grid container spacing={2}>
+      {/* Manualno */}
+      {/* <Grid container spacing={2}>
         <Grid item xs={3}>
           <MG_MenuItem text='test' icon={MenuIcon} count={5} />
         </Grid>
@@ -320,10 +303,9 @@ class MG_MenuSection extends Component {
           </Grid>
         </Grid>
       </Collapse> */}
-      </Paper>
-    );
-  };
-}
+    </Paper>
+  );
+};
 
 const MG = {
   BottomAppBar: () => {
@@ -467,7 +449,11 @@ export const IndexPageTemplate = () => {
         <Box bgcolor='primary.light' height='100vh'>
           {/* Menu */}
           <Container
-            style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}
+            style={{
+              paddingLeft: 10,
+              paddingRight: 10,
+              paddingTop: 20,
+            }}
           >
             {/* Pages */}
             <MG_MenuSection
@@ -480,7 +466,6 @@ export const IndexPageTemplate = () => {
               ]}
             />
 
-            <br />
             {/* Topics */}
             <MG_MenuSection
               title='Topics'
@@ -509,6 +494,18 @@ export const IndexPageTemplate = () => {
                 { title: 'LinkedIn', icon: <LinkedInIcon /> },
               ]}
             />
+
+            {/* Contact button */}
+
+            <Button
+              variant='contained'
+              color='secondary'
+              size='large'
+              fullWidth={true}
+            >
+              <MessageOutlinedIcon />
+              Send me a message
+            </Button>
 
             {/* <Paper>
               <Typography variant='body1'>Pages</Typography>

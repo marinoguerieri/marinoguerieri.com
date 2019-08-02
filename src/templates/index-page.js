@@ -38,6 +38,28 @@ import Card from '@material-ui/core/Card';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
 
+import GithubIconImg from '../img/github-icon.svg';
+import LinkedInIconImg from '../img/linkedin-icon.png';
+const GithubIcon = props => (
+  <MG_ImageComponent
+    imgUrl={GithubIconImg}
+    imgAlt='Github icon'
+    style={props.style}
+  />
+);
+const LinkedInIcon = props => (
+  <MG_ImageComponent
+    imgUrl={LinkedInIconImg}
+    imgAlt='LinkedIn icon'
+    style={props.style}
+  />
+);
+
+// Helper for menu icons
+const MG_ImageComponent = props => (
+  <img src={props.imgUrl} alt={props.imgAlt} style={props.style} />
+);
+
 const MyContext = React.createContext();
 
 class MyProvider extends Component {
@@ -151,7 +173,7 @@ class MG_Post extends Component {
 }
 
 const MG_MenuItem = props => {
-  console.log('item props: ', props);
+  console.log('item icon: ', props.icon);
   return (
     <Button
       style={{
@@ -173,8 +195,7 @@ const MG_MenuItem = props => {
         }}
       >
         <Box>
-          {/* <HomeIcon style={{ width: '50%', height: 'auto' }} /> */}
-          {React.createElement(props.icon, {
+          {React.cloneElement(props.icon, {
             style: {
               width: '50%',
               height: 'auto',
@@ -200,6 +221,7 @@ class MG_MenuSection extends Component {
   render = () => {
     const menuItems = this.props.items.map(item => (
       <MG_MenuItem
+        key={uuidv4()}
         text={item.title}
         icon={item.icon}
         shouldShowCount={this.props.shouldShowCount}
@@ -235,10 +257,11 @@ class MG_MenuSection extends Component {
           {menuItems.map((item, index) => {
             if (index < 4)
               return (
-                <Grid item xs={3}>
+                <Grid key={uuidv4()} item xs={3}>
                   {item}
                 </Grid>
               );
+            else return <></>;
           })}
         </Grid>
 
@@ -248,10 +271,11 @@ class MG_MenuSection extends Component {
             {menuItems.map((item, index) => {
               if (index > 4)
                 return (
-                  <Grid item xs={3}>
+                  <Grid key={uuidv4()} item xs={3}>
                     {item}
                   </Grid>
                 );
+              else return <></>;
             })}
           </Grid>
         </Collapse>
@@ -449,10 +473,10 @@ export const IndexPageTemplate = () => {
             <MG_MenuSection
               title='Pages'
               items={[
-                { title: 'Homepage', icon: HomeIcon },
-                { title: 'About me', icon: PersonIcon },
-                { title: 'Portfolio', icon: WorkIcon },
-                { title: 'Blog', icon: CollectionsBookmarkIcon },
+                { title: 'Homepage', icon: <HomeIcon /> },
+                { title: 'About me', icon: <PersonIcon /> },
+                { title: 'Portfolio', icon: <WorkIcon /> },
+                { title: 'Blog', icon: <CollectionsBookmarkIcon /> },
               ]}
             />
 
@@ -462,18 +486,27 @@ export const IndexPageTemplate = () => {
               title='Topics'
               shouldShowCount={true}
               items={[
-                { title: 'React', count: 31, icon: LabelIcon },
-                { title: 'Wordpress', count: 23, icon: LabelIcon },
-                { title: 'SEO', count: 43, icon: LabelIcon },
-                { title: 'Joomla', count: 53, icon: LabelIcon },
-                { title: 'Plugins', count: 1, icon: LabelIcon },
-                { title: 'PHP', count: 87, icon: LabelIcon },
-                { title: 'JS', count: 11, icon: LabelIcon },
-                { title: 'ELementor', count: 23, icon: LabelIcon },
-                { title: 'JSX', count: 43, icon: LabelIcon },
-                { title: 'Hardware', count: 11, icon: LabelIcon },
-                { title: 'Software', count: 8, icon: LabelIcon },
-                { title: 'Drupal', count: 6, icon: LabelIcon },
+                { title: 'React', count: 31, icon: <LabelIcon /> },
+                { title: 'Wordpress', count: 23, icon: <LabelIcon /> },
+                { title: 'SEO', count: 43, icon: <LabelIcon /> },
+                { title: 'Joomla', count: 53, icon: <LabelIcon /> },
+                { title: 'Plugins', count: 1, icon: <LabelIcon /> },
+                { title: 'PHP', count: 87, icon: <LabelIcon /> },
+                { title: 'JS', count: 11, icon: <LabelIcon /> },
+                { title: 'ELementor', count: 23, icon: <LabelIcon /> },
+                { title: 'JSX', count: 43, icon: <LabelIcon /> },
+                { title: 'Hardware', count: 11, icon: <LabelIcon /> },
+                { title: 'Software', count: 8, icon: <LabelIcon /> },
+                { title: 'Drupal', count: 6, icon: <LabelIcon /> },
+              ]}
+            />
+
+            {/* My Profiles */}
+            <MG_MenuSection
+              title='My Profiles'
+              items={[
+                { title: 'Github', icon: <GithubIcon /> },
+                { title: 'LinkedIn', icon: <LinkedInIcon /> },
               ]}
             />
 

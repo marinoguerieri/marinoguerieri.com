@@ -1,0 +1,13 @@
+[ignore]
+# Causes "Problems" which are not relevant
+<PROJECT_ROOT>/node_modules/@parcel/watcher/test/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

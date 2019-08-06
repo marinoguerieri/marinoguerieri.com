@@ -17,6 +17,8 @@ import Collapse from '@material-ui/core/Collapse';
 
 // import * as MUICore from '@material-ui/core';
 
+var a: number = 5;
+
 const Test = () => {
   <img alt='test' />;
 };
@@ -24,7 +26,7 @@ const Test = () => {
 class TestPageTemplate extends Component {
   render() {
     console.log('test direktno: ', Test);
-    console.log('test brackets: ', <Test />);
+    // console.log('test brackets: ', <Test />);
 
     return <div></div>;
   }

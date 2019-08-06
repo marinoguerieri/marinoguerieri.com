@@ -14,8 +14,11 @@ import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmarkOutli
 import WorkIcon from '@material-ui/icons/WorkOutline';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Avatar from '@material-ui/core/Avatar';
+// @ts-ignore
 import logo from '../img/mg-logo-transparent.svg';
+// @ts-ignore
 import guyImg from '../img/guy.jpg';
+// @ts-ignore
 import samplePostFeaturedImg from '../img/react-post.jpeg';
 import Box from '@material-ui/core/Box';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -36,23 +39,33 @@ import Fab from '@material-ui/core/Fab';
 import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Popover from '@material-ui/core/Popover';
+// @ts-ignore
 import uuidv4 from 'uuid/v4';
 import Card from '@material-ui/core/Card';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
-
+// @ts-ignore
 import GithubIconImg from '../img/github-icon.svg';
+// @ts-ignore
 import LinkedInIconImg from '../img/linkedin-icon.png';
-const GithubIcon = props => (
+
+interface CustomIconProps {
+  imgUrl: string;
+  imgAlt: string;
+  style: object;
+}
+
+const GithubIcon = (props: {}) => (
   <MG_ImageComponent
     imgUrl={GithubIconImg}
     imgAlt='Github icon'
     style={props.style}
   />
 );
-const LinkedInIcon = props => (
+
+const LinkedInIcon = (props: CustomIconProps) => (
   <MG_ImageComponent
     imgUrl={LinkedInIconImg}
     imgAlt='LinkedIn icon'
@@ -61,26 +74,39 @@ const LinkedInIcon = props => (
 );
 
 // Helper for menu icons
-const MG_ImageComponent = props => (
+const MG_ImageComponent = (props: CustomIconProps) => (
   <img src={props.imgUrl} alt={props.imgAlt} style={props.style} />
 );
 
 const MyContext = React.createContext();
 
+interface MyProviderState {
+  isPostBeingRead: boolean;
+  postBeingReadId: boolean | null;
+}
+
+interface MyContextProviderValue {
+  state: MyProviderState;
+  updateState: Function;
+}
+
 class MyProvider extends Component {
-  state = {
+  state: MyProviderState = {
     isPostBeingRead: false,
     postBeingReadId: null,
   };
 
-  updateState = newState => {
+  updateState = (newState: object) => {
     this.setState(newState);
   };
 
   render() {
     return (
       <MyContext.Provider
-        value={{ state: this.state, updateState: this.updateState }}
+        value={{
+          state: this.state,
+          updateState: this.updateState,
+        }}
       >
         {this.props.children}
       </MyContext.Provider>
@@ -88,13 +114,15 @@ class MyProvider extends Component {
   }
 }
 
-class MG_Post extends Component {
-  render() {
-    return (
-      <MyContext.Consumer>
-        {value => (
-          <Paper style={{ padding: 0 }}>
-            {/* <img
+interface MG_PostProps {
+  id: string; // uuidv4() identifier
+}
+
+const MG_Post = (props: MG_PostProps) => {
+  <MyContext.Consumer>
+    {(value: MyContextProviderValue) => (
+      <Paper style={{ padding: 0 }}>
+        {/* <img
                 src={guyImg}
                 style={{
                   width: '20%',
@@ -103,64 +131,71 @@ class MG_Post extends Component {
                   borderRadius: 17,
                 }}
               ></img> */}
+        <Box
+          style={{
+            height: 200,
+            backgroundImage: `url(${guyImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+          onClick={() => {
+            value.updateState({
+              isPostBeingRead: true,
+              postBeingReadId: props.id,
+            });
+          }}
+        >
+          <Typography variant='h6'>HELLO</Typography>
+        </Box>
+        <Typography variant='body1' align='justify'>
+          Hi, I’m Marino Guerieri, a web developer and tech support specialist
+          using HTML, CSS, WordPress, React. You can find more about me and my
+          work here.
+        </Typography>
+        <Typography variant='body1' align='justify'>
+          I’m a huge fan of sticky notes and this website draws inspiration upon
+          it. Please use navigation to explore the topics.
+        </Typography>
+        <Grid container>
+          <Grid item xs={8}>
+            <Button variant='outlined'>ABOUT ME</Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant='body2' align='right'>
+              2019/08/11
+            </Typography>
+          </Grid>
+        </Grid>
+        {value.state.isPostBeingRead &&
+        // Code doesn't work: Fix
+        // @ts-ignore
+        value.state.postBeingReadId == props.id ? (
+          <Paper elevation={8}>
             <Box
               style={{
-                height: 200,
-                backgroundImage: `url(${guyImg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              onClick={() => {
-                value.updateState({
-                  isPostBeingRead: true,
-                  postBeingReadId: this.props.id,
-                });
+                width: '50vw',
+                height: '50vh',
               }}
             >
-              <Typography variant='h6'>HELLO</Typography>
+              Single post contents<div style={{ height: 1000 }}></div>
             </Box>
-            <Typography variant='body1' align='justify'>
-              Hi, I’m Marino Guerieri, a web developer and tech support
-              specialist using HTML, CSS, WordPress, React. You can find more
-              about me and my work here.
-            </Typography>
-            <Typography variant='body1' align='justify'>
-              I’m a huge fan of sticky notes and this website draws inspiration
-              upon it. Please use navigation to explore the topics.
-            </Typography>
-            <Grid container>
-              <Grid item xs={8}>
-                <Button variant='outlined'>ABOUT ME</Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography variant='body2' align='right'>
-                  2019/08/11
-                </Typography>
-              </Grid>
-            </Grid>
-            {value.state.isPostBeingRead &&
-            value.state.postBeingReadId == this.props.id ? (
-              <Paper elevation={8}>
-                <Box
-                  style={{
-                    width: '50vw',
-                    height: '50vh',
-                  }}
-                >
-                  Single post contents<div style={{ height: 1000 }}></div>
-                </Box>
-              </Paper>
-            ) : (
-              <></>
-            )}
           </Paper>
+        ) : (
+          <></>
         )}
-      </MyContext.Consumer>
-    );
-  }
+      </Paper>
+    )}
+  </MyContext.Consumer>;
+};
+
+interface MG_MenuItemProps {
+  icon: JSX.Element /* ? */;
+  text: string;
+  shouldShowCount: boolean;
+  count?: number /* Actually, should be required if shouldShowCount==true */;
 }
 
-const MG_MenuItem = props => {
+const MG_MenuItem = (props: MG_MenuItemProps) => {
   return (
     <Button
       style={{
@@ -196,7 +231,19 @@ const MG_MenuItem = props => {
   );
 };
 
-const MG_MenuSection = props => {
+interface MG_MenuItem {
+  title: string;
+  icon: JSX.Element;
+  count?: number;
+}
+
+interface MG_MenuSectionProps {
+  title: string;
+  items: MG_MenuItem[];
+  shouldShowCount: boolean;
+}
+
+const MG_MenuSection = (props: MG_MenuSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleIsExpanded = () => {
@@ -311,145 +358,113 @@ const MG_MenuSection = props => {
   );
 };
 
-const MG = {
-  BottomAppBar: () => {
-    const useStyles = makeStyles(theme => ({
-      title: {
-        flexGrow: 1,
-      },
-      appBar: {
-        top: 'auto',
-        bottom: 0,
-      },
-      grow: {
-        flexGrow: 1,
-      },
-      fabButton: {
-        position: 'absolute',
-        zIndex: 1,
-        top: -30,
-        right: 50,
-      },
-    }));
+const MG_BottomAppBar = () => {
+  // @ts-ignore
+  const useStyles = makeStyles(theme => ({
+    title: {
+      flexGrow: 1,
+    },
+    appBar: {
+      top: 'auto',
+      bottom: 0,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    fabButton: {
+      position: 'absolute',
+      zIndex: 1,
+      top: -30,
+      right: 50,
+    },
+  }));
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-      <MyContext.Consumer>
-        {value => (
-          <AppBar position='fixed' color='primary' className={classes.appBar}>
-            <Toolbar>
-              <IconButton
-                color='inherit'
+  return (
+    <MyContext.Consumer>
+      {(value: MyContextProviderValue) => (
+        <AppBar position='fixed' color='primary' className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color='inherit'
+              style={{
+                padding: 5,
+              }}
+            >
+              <Avatar
+                alt='Marino Guereri'
+                src={logo}
                 style={{
-                  padding: 5,
+                  width: 40,
+                  height: 'auto',
                 }}
-              >
-                <Avatar
-                  alt='Marino Guereri'
-                  src={logo}
-                  style={{
-                    width: 40,
-                    height: 'auto',
-                  }}
-                />
-              </IconButton>
-              <Typography variant='h6' className={classes.title}>
-                Marino Guerieri
-              </Typography>
-              <Fab
-                onClick={() => {
-                  if (value.state.isPostBeingRead) {
-                    // Close the post
-                    value.updateState({
-                      isPostBeingRead: false,
-                      postBeingReadId: null,
-                    });
-                  } else {
-                    // Open menu
-                    // ...
-                  }
-                }}
-                color='primary'
-                aria-label='add'
-                className={classes.fabButton}
-              >
-                {value.state.isPostBeingRead ? <ArrowBackIcon /> : <MenuIcon />}
-              </Fab>
-            </Toolbar>
-          </AppBar>
-        )}
-      </MyContext.Consumer>
-    );
-  },
+              />
+            </IconButton>
+            <Typography variant='h6' className={classes.title}>
+              Marino Guerieri
+            </Typography>
+            <Fab
+              onClick={() => {
+                if (value.state.isPostBeingRead) {
+                  // Close the post
+                  value.updateState({
+                    isPostBeingRead: false,
+                    postBeingReadId: null,
+                  });
+                } else {
+                  // Open menu
+                  // ...
+                }
+              }}
+              color='primary'
+              aria-label='add'
+              className={classes.fabButton}
+            >
+              {value.state.isPostBeingRead ? <ArrowBackIcon /> : <MenuIcon />}
+            </Fab>
+          </Toolbar>
+        </AppBar>
+      )}
+    </MyContext.Consumer>
+  );
+};
 
-  PinnedOrOthers: props => (
-    /* By default returns 'Others', unless isPinned=true */
-    <Typography variant='body2' style={{ marginBottom: 5 }}>
-      {props.isPinned ? 'PINNED' : 'OTHERS'}
-    </Typography>
-  ),
+interface MG_PinnedOrOthersProps {
+  isPinned: boolean; // Refactor to Enum(pinned,others)
+}
 
-  SimplePopover: () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+const MG_PinnedOrOthers = (props: MG_PinnedOrOthersProps) => (
+  /* By default returns 'Others', unless isPinned=true */
+  <Typography variant='body2' style={{ marginBottom: 5 }}>
+    {props.isPinned ? 'PINNED' : 'OTHERS'}
+  </Typography>
+);
 
-    function handleClick(event) {
-      setAnchorEl(event.currentTarget);
-    }
+interface MG_ThemeProps {
+  children: JSX.Element /* ? Multiple elements */;
+}
 
-    function handleClose() {
-      setAnchorEl(null);
-    }
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-    return (
-      <div>
-        <Button aria-describedby={id} variant='contained' onClick={handleClick}>
-          Open Popover
-        </Button>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <Typography>The content of the Popover.</Typography>
-        </Popover>
-      </div>
-    );
-  },
-
-  Theme: props => {
-    const theme = createMuiTheme({
-      palette: {
-        primary: {
-          main: '#ffffff',
-        },
-        secondary: {
-          main: '#333333',
-        },
+const MG_Theme = (props: MG_ThemeProps) => {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#ffffff',
       },
-    });
+      secondary: {
+        main: '#333333',
+      },
+    },
+  });
 
-    return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
-  },
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
 export const IndexPageTemplate = () => {
   return (
     /* Box should fill the whole window, thus height=100vh */
     <MyProvider>
-      <MG.Theme>
+      <MG_Theme>
         <Box bgcolor='primary.light' height='100vh'>
           {/* ----------------- CONTACT FORM -------------------*/}
           <Container
@@ -551,6 +566,7 @@ export const IndexPageTemplate = () => {
             {/* Pages */}
             <MG_MenuSection
               title='Pages'
+              shouldShowCount={false}
               items={[
                 { title: 'Homepage', icon: <HomeIcon /> },
                 { title: 'About me', icon: <PersonIcon /> },
@@ -582,6 +598,7 @@ export const IndexPageTemplate = () => {
             {/* My Profiles */}
             <MG_MenuSection
               title='My Profiles'
+              shouldShowCount={false}
               items={[
                 { title: 'Github', icon: <GithubIcon /> },
                 { title: 'LinkedIn', icon: <LinkedInIcon /> },
@@ -610,9 +627,9 @@ export const IndexPageTemplate = () => {
               paddingTop: 20,
             }}
           >
-            <MG.PinnedOrOthers isPinned />
+            <MG_PinnedOrOthers isPinned />
             <MG_Post id={uuidv4()} />
-            <MG.PinnedOrOthers />
+            <MG_PinnedOrOthers />
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
             <MG_Post id={uuidv4()} />
@@ -714,9 +731,9 @@ export const IndexPageTemplate = () => {
           </Container>
           {/* ------------------ /SINGLE POST -------------------*/}
 
-          <MG.BottomAppBar />
+          <MG_BottomAppBar />
         </Box>
-      </MG.Theme>
+      </MG_Theme>
     </MyProvider>
   );
 };

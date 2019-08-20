@@ -118,7 +118,7 @@ interface MG_PostProps {
   id: string; // uuidv4() identifier
 }
 
-const MG_Post = (props: MG_PostProps) => {
+const MG_Post = (props: MG_PostProps) => (
   <MyContext.Consumer>
     {(value: MyContextProviderValue) => (
       <Paper style={{ padding: 0 }}>
@@ -185,8 +185,8 @@ const MG_Post = (props: MG_PostProps) => {
         )}
       </Paper>
     )}
-  </MyContext.Consumer>;
-};
+  </MyContext.Consumer>
+);
 
 interface MG_MenuItemProps {
   icon: JSX.Element /* ? */;
@@ -466,10 +466,10 @@ export const IndexPageTemplate = () => {
     <MyProvider>
       <MG_Theme>
         <Box bgcolor='primary.light' height='100vh'>
-          {/* ----------------- CONTACT FORM -------------------*/}
+          {/* ----------------- CONTACT FORM ------------------- */}
           <Container
             style={{
-              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
               paddingLeft: 10,
               paddingRight: 10,
               paddingTop: 20,
@@ -499,57 +499,60 @@ export const IndexPageTemplate = () => {
                 &nbsp;(it goes to my email inbox either way :-)
               </Typography>
 
-              <TextField
-                fullWidth
-                required
-                id='outlined-required'
-                label='Full Name'
-                margin='normal'
-                variant='outlined'
-              />
-              <br />
-              <TextField
-                fullWidth
-                required
-                id='outlined-required'
-                label='Email Adress'
-                margin='normal'
-                variant='outlined'
-              />
-              <br />
-              <TextField
-                fullWidth
-                id='outlined-required'
-                label='Company'
-                margin='normal'
-                variant='outlined'
-              />
-              <br />
-              <TextField
-                fullWidth
-                required
-                id='filled-multiline-flexible'
-                label='Message'
-                multiline
-                rows='4'
-                margin='normal'
-                variant='outlined'
-              />
+              <form name='contact' method='POST' data-netlify='true'>
+                <TextField
+                  fullWidth
+                  required
+                  id='outlined-required'
+                  label='Full Name'
+                  margin='normal'
+                  variant='outlined'
+                />
+                <br />
+                <TextField
+                  fullWidth
+                  required
+                  id='outlined-required'
+                  label='Email Adress'
+                  margin='normal'
+                  variant='outlined'
+                />
+                <br />
+                <TextField
+                  fullWidth
+                  id='outlined-required'
+                  label='Company'
+                  margin='normal'
+                  variant='outlined'
+                />
+                <br />
+                <TextField
+                  fullWidth
+                  required
+                  id='filled-multiline-flexible'
+                  label='Message'
+                  multiline
+                  rows='4'
+                  margin='normal'
+                  variant='outlined'
+                />
 
-              <Typography variant='subtitle2'>
-                By sending this message, I consent to collection of personal
-                data as described in Privacy Policy.
-              </Typography>
+                <Typography variant='subtitle2'>
+                  By sending this message, I consent to collection of personal
+                  data as described in Privacy Policy.
+                </Typography>
 
-              <Button
-                variant='contained'
-                color='secondary'
-                size='large'
-                fullWidth={true}
-              >
-                <SendIcon />
-                Send
-              </Button>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='secondary'
+                  size='large'
+                  fullWidth={true}
+                >
+                  <SendIcon />
+                  Send
+                </Button>
+              </form>
             </Paper>
           </Container>
           {/* ----------------- /CONTACT FORM -------------------*/}
@@ -640,7 +643,7 @@ export const IndexPageTemplate = () => {
           {/* ------------------ SINGLE POST --------------------*/}
           <Container
             style={{
-              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
               paddingLeft: 10,
               paddingRight: 10,
               paddingTop: 20,

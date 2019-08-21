@@ -461,289 +461,366 @@ const MG_Theme = (props: MG_ThemeProps) => {
 };
 
 export const IndexPageTemplate = () => {
-  return (
-    /* Box should fill the whole window, thus height=100vh */
-    <MyProvider>
-      <MG_Theme>
-        <Box bgcolor='primary.light' height='100vh'>
-          {/* ----------------- CONTACT FORM ------------------- */}
-          <Container
-            style={{
-              // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
-              paddingLeft: 10,
-              paddingRight: 10,
-              paddingTop: 20,
-            }}
+  const developmentMode = true;
+
+  if (developmentMode) {
+    return (
+      <Grid
+        container
+        style={{
+          height: '100vh',
+          padding: 20,
+          backgroundColor: 'rgb(245,245,245)',
+        }}
+        justify='center'
+        alignItems='center'
+      >
+        <Grid item xs={12} sm={10} md={8} lg={6} xl={4}>
+          <Paper
+            square={false}
+            elevation={8}
+            style={{ padding: 20, borderRadius: 50 }}
           >
-            <Paper
-              elevation={16}
-              square={false}
-              style={{
-                borderRadius: 50,
-                padding: 20,
-              }}
+            <Box
+              display='flex'
+              justifyContent='center'
+              style={{ marginBottom: 20 }}
             >
-              <Typography variant='h5'>
-                Feel free to leave me a message.
-              </Typography>
-
-              <Typography variant='body1'>
-                Just use the contact form below or contact me directly at&nbsp;
-                <Link
-                  href='mailto:marino@marinoguerieri.com'
-                  color='inherit'
-                  style={{ fontWeight: 500 }}
-                >
-                  marino@marinoguerieri.com
-                </Link>
-                &nbsp;(it goes to my email inbox either way :-)
-              </Typography>
-
-              <form
-                name='contact'
-                method='POST'
-                data-netlify='true'
-                action='/notexist'
-              >
-                <TextField
-                  fullWidth
-                  required
-                  id='outlined-required'
-                  label='Full Name'
-                  margin='normal'
-                  variant='outlined'
-                />
-                <br />
-                <TextField
-                  fullWidth
-                  required
-                  id='outlined-required'
-                  label='Email Adress'
-                  margin='normal'
-                  variant='outlined'
-                />
-                <br />
-                <TextField
-                  fullWidth
-                  id='outlined-required'
-                  label='Company'
-                  margin='normal'
-                  variant='outlined'
-                />
-                <br />
-                <TextField
-                  fullWidth
-                  required
-                  id='filled-multiline-flexible'
-                  label='Message'
-                  multiline
-                  rows='4'
-                  margin='normal'
-                  variant='outlined'
-                />
-
-                <Typography variant='subtitle2'>
-                  By sending this message, I consent to collection of personal
-                  data as described in Privacy Policy.
-                </Typography>
-
-                <Button
-                  type='submit'
-                  variant='contained'
-                  color='secondary'
-                  size='large'
-                  fullWidth={true}
-                >
-                  <SendIcon />
-                  Send
-                </Button>
-              </form>
-            </Paper>
-          </Container>
-          {/* ----------------- /CONTACT FORM -------------------*/}
-
-          {/* --------------------- MENU ------------------------*/}
-          <Container
-            style={{
-              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
-              paddingLeft: 10,
-              paddingRight: 10,
-              paddingTop: 20,
-            }}
-          >
-            {/* Pages */}
-            <MG_MenuSection
-              title='Pages'
-              shouldShowCount={false}
-              items={[
-                { title: 'Homepage', icon: <HomeIcon /> },
-                { title: 'About me', icon: <PersonIcon /> },
-                { title: 'Portfolio', icon: <WorkIcon /> },
-                { title: 'Blog', icon: <CollectionsBookmarkIcon /> },
-              ]}
-            />
-
-            {/* Topics */}
-            <MG_MenuSection
-              title='Topics'
-              shouldShowCount={true}
-              items={[
-                { title: 'React', count: 31, icon: <LabelIcon /> },
-                { title: 'Wordpress', count: 23, icon: <LabelIcon /> },
-                { title: 'SEO', count: 43, icon: <LabelIcon /> },
-                { title: 'Joomla', count: 53, icon: <LabelIcon /> },
-                { title: 'Plugins', count: 1, icon: <LabelIcon /> },
-                { title: 'PHP', count: 87, icon: <LabelIcon /> },
-                { title: 'JS', count: 11, icon: <LabelIcon /> },
-                { title: 'ELementor', count: 23, icon: <LabelIcon /> },
-                { title: 'JSX', count: 43, icon: <LabelIcon /> },
-                { title: 'Hardware', count: 11, icon: <LabelIcon /> },
-                { title: 'Software', count: 8, icon: <LabelIcon /> },
-                { title: 'Drupal', count: 6, icon: <LabelIcon /> },
-              ]}
-            />
-
-            {/* My Profiles */}
-            <MG_MenuSection
-              title='My Profiles'
-              shouldShowCount={false}
-              items={[
-                { title: 'Github', icon: <GithubIcon /> },
-                { title: 'LinkedIn', icon: <LinkedInIcon /> },
-              ]}
-            />
-
-            {/* Contact button */}
-
-            <Button
-              variant='contained'
-              color='secondary'
-              size='large'
-              fullWidth={true}
-            >
-              <MessageOutlinedIcon />
-              Send me a message
-            </Button>
-          </Container>
-          {/* --------------------- /MENU ------------------------*/}
-
-          {/* -------------------- ARCHIVE -----------------------*/}
-          {/* Pages */}
-          <Container
-            style={{
-              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
-              paddingTop: 20,
-            }}
-          >
-            <MG_PinnedOrOthers isPinned />
-            <MG_Post id={uuidv4()} />
-            <MG_PinnedOrOthers />
-            <MG_Post id={uuidv4()} />
-            <MG_Post id={uuidv4()} />
-            <MG_Post id={uuidv4()} />
-            <MG_Post id={uuidv4()} />
-          </Container>
-          {/* -------------------- /ARCHIVE ---------------------*/}
-
-          {/* ------------------ SINGLE POST --------------------*/}
-          <Container
-            style={{
-              display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
-              paddingLeft: 10,
-              paddingRight: 10,
-              paddingTop: 20,
-            }}
-          >
-            <Paper
-              elevation={16}
-              square={false}
-              style={{
-                borderRadius: 50,
-                height: '90vh',
-                overflow: 'auto',
-              }}
-            >
-              <Box
+              <Avatar
+                alt='Marino Guereri'
+                src={logo}
                 style={{
+                  width: 80,
+                  height: 'auto',
+                }}
+              />
+            </Box>
+
+            <Typography variant='body1'>
+              Hi, I'm <span style={{ fontWeight: 500 }}>Marino Guerieri</span>,
+              a web developer and technical support specialist.
+              <br />
+              <br />
+              This website is currently under development. It will be done by
+              the end of October so please come back and check it out. :-)
+              <br />
+              <br />
+              If you need to contact me, I'm available at&nbsp;
+              <Link
+                href='mailto:marino@marinoguerieri.com'
+                color='inherit'
+                style={{ fontWeight: 500 }}
+              >
+                marino@marinoguerieri.com
+              </Link>
+              . In the meantime, you can check out my{' '}
+              <Link
+                href='https://github.com/marinoguerieri'
+                color='inherit'
+                style={{ fontWeight: 500 }}
+              >
+                Github
+              </Link>
+              &nbsp;&amp;&nbsp;
+              <Link
+                href='https://www.linkedin.com/in/marino-guerieri/'
+                color='inherit'
+                style={{ fontWeight: 500 }}
+              >
+                LinkedIn
+              </Link>{' '}
+              profiles.
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
+    );
+  } else {
+    return (
+      /* Box should fill the whole window, thus height=100vh */
+      <MyProvider>
+        <MG_Theme>
+          <Box bgcolor='primary.light' height='100vh'>
+            {/* ----------------- CONTACT FORM ------------------- */}
+            <Container
+              style={{
+                display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 20,
+              }}
+            >
+              <Paper
+                elevation={16}
+                square={false}
+                style={{
+                  borderRadius: 50,
                   padding: 20,
-                  backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url(${samplePostFeaturedImg})`,
-                  height: 300,
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-                  borderRadius: '50px 50px 0 0',
-                  // flex
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignContent: 'flex-end',
                 }}
               >
-                <Box flexGrow={1}></Box>
-                <Typography
-                  variant='h5'
-                  style={
-                    {
-                      // paddingTop: 50,
-                      // backgroundColor: 'rgba(200,200,200,0.5)',
-                    }
-                  }
-                >
-                  REACT V654.2.3 IS COMING OUT!
+                <Typography variant='h5'>
+                  Feel free to leave me a message.
                 </Typography>
-                <Typography variant='subtitle1'>2019/12/32</Typography>
-              </Box>
 
-              <Box style={{ padding: 20 }}>
                 <Typography variant='body1'>
-                  Today is the big day. New release of React is coming out and
-                  with that many new features that we will never use.
-                  &lt;SomeCode someProp=&rdquo;someValue&rdquo;&gt; is the new
-                  standard of writing code that makes no sense.
-                  <br />
-                  <br />
-                  if (newProp != oldProp) &lt;SomeOtherComponent&gt; React was
-                  created by Jordan Walke, a software engineer at Facebook, who
-                  released an early prototype of React called
-                  &quot;FaxJS&quot;.[9][10] He was influenced by XHP, an HTML
-                  component framework for PHP.[11] It was first deployed on
-                  Facebook's News Feed in 2011 and later on Instagram in 2012.
-                  [12] It was open-sourced at JSConf US in May 2013. [10] React
-                  Native, which enables native Android, iOS, and UWP development
-                  with React, was announced at Facebook's React Conf in February
-                  2015 and open-sourced in March 2015.
-                  <br />
-                  <br />
-                  On April 18, 2017, Facebook announced React Fiber, a new core
-                  algorithm of React framework library for building user
-                  interfaces.[13] React Fiber was to become the foundation of
-                  any future improvements and feature development of the React
-                  framework. [14][needs update] On April 19, 2017, React 360
-                  V1.0.0 was released to the public.[15] This allowed developers
-                  with React experience to jump into virtual reality
-                  development.
-                  <br />
-                  <br />
-                  On September 26, 2017, React 16.0 was released to the
-                  public.[16] On February 16, 2019, React 16.8 was released to
-                  the public.[17] The release introduced React Hooks. [18].
-                  That&rsquo;s it.
+                  Just use the contact form below or contact me directly
+                  at&nbsp;
+                  <Link
+                    href='mailto:marino@marinoguerieri.com'
+                    color='inherit'
+                    style={{ fontWeight: 500 }}
+                  >
+                    marino@marinoguerieri.com
+                  </Link>
+                  &nbsp;(it goes to my email inbox either way :-)
                 </Typography>
-                <br />
-                <br />
-                <Button>BLOG</Button>
-                <Button>REACT</Button>
-              </Box>
-            </Paper>
-            {/* Add some space */}
-            <Box height='100px'></Box>
-          </Container>
-          {/* ------------------ /SINGLE POST -------------------*/}
 
-          <MG_BottomAppBar />
-        </Box>
-      </MG_Theme>
-    </MyProvider>
-  );
+                <form
+                  name='contact'
+                  method='POST'
+                  data-netlify='true'
+                  action='/notexist'
+                >
+                  <TextField
+                    fullWidth
+                    required
+                    id='outlined-required'
+                    label='Full Name'
+                    margin='normal'
+                    variant='outlined'
+                  />
+                  <br />
+                  <TextField
+                    fullWidth
+                    required
+                    id='outlined-required'
+                    label='Email Adress'
+                    margin='normal'
+                    variant='outlined'
+                  />
+                  <br />
+                  <TextField
+                    fullWidth
+                    id='outlined-required'
+                    label='Company'
+                    margin='normal'
+                    variant='outlined'
+                  />
+                  <br />
+                  <TextField
+                    fullWidth
+                    required
+                    id='filled-multiline-flexible'
+                    label='Message'
+                    multiline
+                    rows='4'
+                    margin='normal'
+                    variant='outlined'
+                  />
+
+                  <Typography variant='subtitle2'>
+                    By sending this message, I consent to collection of personal
+                    data as described in Privacy Policy.
+                  </Typography>
+
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color='secondary'
+                    size='large'
+                    fullWidth={true}
+                  >
+                    <SendIcon />
+                    Send
+                  </Button>
+                </form>
+              </Paper>
+            </Container>
+            {/* ----------------- /CONTACT FORM -------------------*/}
+
+            {/* --------------------- MENU ------------------------*/}
+            <Container
+              style={{
+                display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 20,
+              }}
+            >
+              {/* Pages */}
+              <MG_MenuSection
+                title='Pages'
+                shouldShowCount={false}
+                items={[
+                  { title: 'Homepage', icon: <HomeIcon /> },
+                  { title: 'About me', icon: <PersonIcon /> },
+                  { title: 'Portfolio', icon: <WorkIcon /> },
+                  { title: 'Blog', icon: <CollectionsBookmarkIcon /> },
+                ]}
+              />
+
+              {/* Topics */}
+              <MG_MenuSection
+                title='Topics'
+                shouldShowCount={true}
+                items={[
+                  { title: 'React', count: 31, icon: <LabelIcon /> },
+                  { title: 'Wordpress', count: 23, icon: <LabelIcon /> },
+                  { title: 'SEO', count: 43, icon: <LabelIcon /> },
+                  { title: 'Joomla', count: 53, icon: <LabelIcon /> },
+                  { title: 'Plugins', count: 1, icon: <LabelIcon /> },
+                  { title: 'PHP', count: 87, icon: <LabelIcon /> },
+                  { title: 'JS', count: 11, icon: <LabelIcon /> },
+                  { title: 'ELementor', count: 23, icon: <LabelIcon /> },
+                  { title: 'JSX', count: 43, icon: <LabelIcon /> },
+                  { title: 'Hardware', count: 11, icon: <LabelIcon /> },
+                  { title: 'Software', count: 8, icon: <LabelIcon /> },
+                  { title: 'Drupal', count: 6, icon: <LabelIcon /> },
+                ]}
+              />
+
+              {/* My Profiles */}
+              <MG_MenuSection
+                title='My Profiles'
+                shouldShowCount={false}
+                items={[
+                  { title: 'Github', icon: <GithubIcon /> },
+                  { title: 'LinkedIn', icon: <LinkedInIcon /> },
+                ]}
+              />
+
+              {/* Contact button */}
+
+              <Button
+                variant='contained'
+                color='secondary'
+                size='large'
+                fullWidth={true}
+              >
+                <MessageOutlinedIcon />
+                Send me a message
+              </Button>
+            </Container>
+            {/* --------------------- /MENU ------------------------*/}
+
+            {/* -------------------- ARCHIVE -----------------------*/}
+            {/* Pages */}
+            <Container
+              style={{
+                display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+                paddingTop: 20,
+              }}
+            >
+              <MG_PinnedOrOthers isPinned />
+              <MG_Post id={uuidv4()} />
+              <MG_PinnedOrOthers />
+              <MG_Post id={uuidv4()} />
+              <MG_Post id={uuidv4()} />
+              <MG_Post id={uuidv4()} />
+              <MG_Post id={uuidv4()} />
+            </Container>
+            {/* -------------------- /ARCHIVE ---------------------*/}
+
+            {/* ------------------ SINGLE POST --------------------*/}
+            <Container
+              style={{
+                display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 20,
+              }}
+            >
+              <Paper
+                elevation={16}
+                square={false}
+                style={{
+                  borderRadius: 50,
+                  height: '90vh',
+                  overflow: 'auto',
+                }}
+              >
+                <Box
+                  style={{
+                    padding: 20,
+                    backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url(${samplePostFeaturedImg})`,
+                    height: 300,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    borderRadius: '50px 50px 0 0',
+                    // flex
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignContent: 'flex-end',
+                  }}
+                >
+                  <Box flexGrow={1}></Box>
+                  <Typography
+                    variant='h5'
+                    style={
+                      {
+                        // paddingTop: 50,
+                        // backgroundColor: 'rgba(200,200,200,0.5)',
+                      }
+                    }
+                  >
+                    REACT V654.2.3 IS COMING OUT!
+                  </Typography>
+                  <Typography variant='subtitle1'>2019/12/32</Typography>
+                </Box>
+
+                <Box style={{ padding: 20 }}>
+                  <Typography variant='body1'>
+                    Today is the big day. New release of React is coming out and
+                    with that many new features that we will never use.
+                    &lt;SomeCode someProp=&rdquo;someValue&rdquo;&gt; is the new
+                    standard of writing code that makes no sense.
+                    <br />
+                    <br />
+                    if (newProp != oldProp) &lt;SomeOtherComponent&gt; React was
+                    created by Jordan Walke, a software engineer at Facebook,
+                    who released an early prototype of React called
+                    &quot;FaxJS&quot;.[9][10] He was influenced by XHP, an HTML
+                    component framework for PHP.[11] It was first deployed on
+                    Facebook's News Feed in 2011 and later on Instagram in 2012.
+                    [12] It was open-sourced at JSConf US in May 2013. [10]
+                    React Native, which enables native Android, iOS, and UWP
+                    development with React, was announced at Facebook's React
+                    Conf in February 2015 and open-sourced in March 2015.
+                    <br />
+                    <br />
+                    On April 18, 2017, Facebook announced React Fiber, a new
+                    core algorithm of React framework library for building user
+                    interfaces.[13] React Fiber was to become the foundation of
+                    any future improvements and feature development of the React
+                    framework. [14][needs update] On April 19, 2017, React 360
+                    V1.0.0 was released to the public.[15] This allowed
+                    developers with React experience to jump into virtual
+                    reality development.
+                    <br />
+                    <br />
+                    On September 26, 2017, React 16.0 was released to the
+                    public.[16] On February 16, 2019, React 16.8 was released to
+                    the public.[17] The release introduced React Hooks. [18].
+                    That&rsquo;s it.
+                  </Typography>
+                  <br />
+                  <br />
+                  <Button>BLOG</Button>
+                  <Button>REACT</Button>
+                </Box>
+              </Paper>
+              {/* Add some space */}
+              <Box height='100px'></Box>
+            </Container>
+            {/* ------------------ /SINGLE POST -------------------*/}
+
+            <MG_BottomAppBar />
+          </Box>
+        </MG_Theme>
+      </MyProvider>
+    );
+  }
 };
 
 class IndexPage extends Component {

@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-netlify-cms",
-  "description": "Example Gatsby, and Netlify CMS project",
-  "version": "1.1.3",
-  "author": "Austin Green",
+  "name": "marinoguerieri-com",
+  "description": "A personal website.",
+  "version": "1.0.0",
+  "author": "Marino Guerieri",
   "dependencies": {
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",

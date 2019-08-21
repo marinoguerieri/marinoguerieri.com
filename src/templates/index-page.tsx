@@ -501,8 +501,8 @@ export const IndexPageTemplate = () => {
               a web developer and technical support specialist.
               <br />
               <br />
-              This website is currently under development. It will be done by
-              the end of October so please come back and check it out. :-)
+              This website is currently under development. It will be done soon
+              so please come back and check it out. :-)
               <br />
               <br />
               If you need to contact me, I'm available at&nbsp;

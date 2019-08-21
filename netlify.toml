@@ -2,6 +2,13 @@
   publish = "public"
   command = "npm run build"
   functions = "lambda"
+  
 [build.environment]
   YARN_VERSION = "1.9.4"
   YARN_FLAGS = "--no-ignore-optional"
+
+[[redirects]]
+  from = "https://marinoguerieri.netlify.com/*"
+  to = "https://marinoguerieri.com/:splat"
+  status = 301
+  force = true

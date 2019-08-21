@@ -499,7 +499,12 @@ export const IndexPageTemplate = () => {
                 &nbsp;(it goes to my email inbox either way :-)
               </Typography>
 
-              <form name='contact' method='POST' data-netlify='true'>
+              <form
+                name='contact'
+                method='POST'
+                data-netlify='true'
+                action='/notexist'
+              >
                 <TextField
                   fullWidth
                   required

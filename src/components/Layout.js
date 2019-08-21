@@ -12,7 +12,10 @@ const TemplateWrapper = ({ children }) => {
     <div>
       <Helmet>
         <html lang='en' />
-        <title>{title}</title>
+        {/* <title>{title}</title> */}
+        <title>
+          Marino Guerieri / Web developer & tech. support specialist
+        </title>
         <meta name='description' content={description} />
 
         <link
@@ -45,9 +48,9 @@ const TemplateWrapper = ({ children }) => {
         <meta property='og:url' content='/' />
         <meta property='og:image' content='/img/og-image.jpg' />
       </Helmet>
-      <Navbar />
+      {/* <Navbar /> */}
       <div>{children}</div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

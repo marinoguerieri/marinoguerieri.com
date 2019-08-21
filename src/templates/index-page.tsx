@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import Layout from '../components/Layout';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -824,7 +825,11 @@ export const IndexPageTemplate = () => {
 };
 
 class IndexPage extends Component {
-  render = () => <IndexPageTemplate />;
+  render = () => (
+    <Layout>
+      <IndexPageTemplate />
+    </Layout>
+  );
 }
 
 export default IndexPage;

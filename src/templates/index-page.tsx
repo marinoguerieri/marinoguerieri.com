@@ -484,7 +484,7 @@ export const IndexPageTemplate = () => {
               }}
             >
               <Typography variant='h5'>
-                Feel free to leave me a message.
+                Testing things out. Feel free to leave me a message.
               </Typography>
 
               <Typography variant='body1'>

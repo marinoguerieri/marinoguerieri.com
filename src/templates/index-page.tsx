@@ -489,7 +489,7 @@ const MG_ContactForm = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': 'contact-form',
+        'form-name': 'contact-form-v2',
         ...formData,
       }),
     })
@@ -533,11 +533,11 @@ const MG_ContactForm = () => {
         {/* Helper form for 'Netlify bots'.
         Netlify has trouble getting the right labels for MaterialUI form elements */}
         <form
-          name='contact-form'
+          name='contact-form-v2'
           data-netlify='true'
           style={{ display: 'none' }}
         >
-          <input type='hidden' name='form-name' value='contact-form' />
+          <input type='hidden' name='form-name' value='contact-form-v2' />
           <label>
             Full Name <input type='hidden' name='fullName' />
           </label>

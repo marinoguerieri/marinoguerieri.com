@@ -480,7 +480,7 @@ const MG_ContactForm = () => {
 
   /* TODO: Fix types */
   const handleChange = (input: string) => (e: object) => {
-    console.log('e.target is: ', e.target.value);
+    // console.log('e.target is: ', e.target.value);
     setFormData({ ...formData, [input]: e.target.value });
   };
 
@@ -493,7 +493,7 @@ const MG_ContactForm = () => {
         ...formData,
       }),
     })
-      .then(() => alert('Success!'))
+      .then(res => console.log(res))
       .catch(error => alert(error));
 
     e.preventDefault();

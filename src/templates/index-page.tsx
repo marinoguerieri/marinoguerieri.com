@@ -432,6 +432,8 @@ const MG_BottomAppBar = () => {
   );
 };
 
+// test
+
 interface MG_PinnedOrOthersProps {
   isPinned: boolean; // Refactor to Enum(pinned,others)
 }

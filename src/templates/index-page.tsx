@@ -531,7 +531,10 @@ const MG_ContactForm = () => {
           &nbsp;(it goes to my email inbox either way :-)
         </Typography>
 
-        <form onSubmit={handleSubmit}>
+        <form name='contact-dev' data-netlify='true' onSubmit={handleSubmit}>
+          {/* You still need to add the hidden input with the form name to your JSX form */}
+          <input type='hidden' name='form-name' value='contact-dev' />
+
           <TextField
             fullWidth
             required
@@ -635,9 +638,8 @@ export const IndexPageTemplate = () => {
             </Box>
 
             <Typography variant='body1'>
-              Test Hi, I'm{' '}
-              <span style={{ fontWeight: 500 }}>Marino Guerieri</span>, a web
-              developer and technical support specialist.
+              Hi, I'm <span style={{ fontWeight: 500 }}>Marino Guerieri</span>,
+              a web developer and technical support specialist.
               <br />
               <br />
               This website is currently under development. It will be done soon

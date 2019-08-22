@@ -532,7 +532,11 @@ const MG_ContactForm = () => {
 
         {/* Helper form for 'Netlify bots'.
         Netlify has trouble getting the right labels for MaterialUI form elements */}
-        <form name='contact-form' data-netlify='true' style={{ display: none }}>
+        <form
+          name='contact-form'
+          data-netlify='true'
+          style={{ display: 'none' }}
+        >
           <input type='hidden' name='form-name' value='contact-form' />
           <label>
             Full Name <input type='hidden' name='fullName' />

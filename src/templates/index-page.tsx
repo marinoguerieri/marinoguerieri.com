@@ -489,9 +489,8 @@ const MG_ContactForm = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': 'contact-dev',
+        'form-name': 'contact-form',
         ...formData,
-        testField: 'Meko Bebco',
       }),
     })
       .then(() => alert('Success!'))
@@ -531,9 +530,9 @@ const MG_ContactForm = () => {
           &nbsp;(it goes to my email inbox either way :-)
         </Typography>
 
-        <form name='contact-dev' data-netlify='true' onSubmit={handleSubmit}>
+        <form name='contact-form' data-netlify='true' onSubmit={handleSubmit}>
           {/* You still need to add the hidden input with the form name to your JSX form */}
-          <input type='hidden' name='form-name' value='contact-dev' />
+          <input type='hidden' name='form-name' value='contact-form' />
 
           <TextField
             fullWidth

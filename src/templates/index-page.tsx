@@ -432,8 +432,6 @@ const MG_BottomAppBar = () => {
   );
 };
 
-// test
-
 interface MG_PinnedOrOthersProps {
   isPinned: boolean; // Refactor to Enum(pinned,others)
 }
@@ -488,7 +486,11 @@ const MG_ContactForm = () => {
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({ 'form-name': 'contact', ...formData }),
+      body: encode({
+        'form-name': 'contact',
+        ...formData,
+        testField: 'Meko Bebco',
+      }),
     })
       .then(() => alert('Success!'))
       .catch(error => alert(error));

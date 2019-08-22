@@ -635,8 +635,9 @@ export const IndexPageTemplate = () => {
             </Box>
 
             <Typography variant='body1'>
-              Hi, I'm <span style={{ fontWeight: 500 }}>Marino Guerieri</span>,
-              a web developer and technical support specialist.
+              Test Hi, I'm{' '}
+              <span style={{ fontWeight: 500 }}>Marino Guerieri</span>, a web
+              developer and technical support specialist.
               <br />
               <br />
               This website is currently under development. It will be done soon

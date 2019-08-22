@@ -530,9 +530,26 @@ const MG_ContactForm = () => {
           &nbsp;(it goes to my email inbox either way :-)
         </Typography>
 
-        <form name='contact-form' data-netlify='true' onSubmit={handleSubmit}>
-          {/* You still need to add the hidden input with the form name to your JSX form */}
+        {/* Helper form for 'Netlify bots'.
+        Netlify has trouble getting the right labels for MaterialUI form elements */}
+        <form name='contact-form' data-netlify='true' style={{ display: none }}>
           <input type='hidden' name='form-name' value='contact-form' />
+          <label>
+            Full Name <input type='hidden' name='fullName' />
+          </label>
+          <label>
+            Email Adress <input type='hidden' name='email' />
+          </label>
+          <label>
+            Company <input type='hidden' name='company' />
+          </label>
+          <label>
+            Message <input type='hidden' name='message' />
+          </label>
+        </form>
+
+        <form onSubmit={handleSubmit}>
+          {/* You still need to add the hidden input with the form name to your JSX form */}
 
           <TextField
             fullWidth
@@ -543,7 +560,6 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.fullName}
             onChange={handleChange('fullName')}
-            name='fullName'
           />
           <br />
           <TextField
@@ -555,7 +571,6 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.email}
             onChange={handleChange('email')}
-            name='email'
           />
           <br />
           <TextField
@@ -566,7 +581,6 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.company}
             onChange={handleChange('company')}
-            name='company'
           />
           <br />
           <TextField
@@ -580,7 +594,6 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.message}
             onChange={handleChange('message')}
-            name='message'
           />
 
           <Typography variant='subtitle2'>

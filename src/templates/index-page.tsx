@@ -484,20 +484,20 @@ const MG_ContactForm = () => {
     setFormData({ ...formData, [input]: e.target.value });
   };
 
-  const handleSubmit = e => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': 'contact-form',
-        ...formData,
-      }),
-    })
-      .then(() => alert('Success!'))
-      .catch(error => alert(error));
+  // const handleSubmit = e => {
+  //   fetch('/', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //     body: encode({
+  //       'form-name': 'contact-form',
+  //       ...formData,
+  //     }),
+  //   })
+  //     .then(() => alert('Success!'))
+  //     .catch(error => alert(error));
 
-    e.preventDefault();
-  };
+  //   e.preventDefault();
+  // };
 
   return (
     <Container
@@ -530,7 +530,7 @@ const MG_ContactForm = () => {
           &nbsp;(it goes to my email inbox either way :-)
         </Typography>
 
-        <form name='contact-form' data-netlify='true' onSubmit={handleSubmit}>
+        <form name='contact-form' data-netlify='true'>
           {/* You still need to add the hidden input with the form name to your JSX form */}
           <input type='hidden' name='form-name' value='contact-form' />
 
@@ -543,6 +543,7 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.fullName}
             onChange={handleChange('fullName')}
+            name='fullName'
           />
           <br />
           <TextField
@@ -554,6 +555,7 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.email}
             onChange={handleChange('email')}
+            name='email'
           />
           <br />
           <TextField
@@ -564,6 +566,7 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.company}
             onChange={handleChange('company')}
+            name='company'
           />
           <br />
           <TextField
@@ -577,6 +580,7 @@ const MG_ContactForm = () => {
             variant='outlined'
             value={formData.message}
             onChange={handleChange('message')}
+            name='message'
           />
 
           <Typography variant='subtitle2'>

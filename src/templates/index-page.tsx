@@ -531,7 +531,7 @@ const MG_ContactForm = () => {
         </Typography>
 
         <form name='contact-form' data-netlify='true' onSubmit={handleSubmit}>
-          {/* You still need to add the hidden input with the form name to your JSX form. */}
+          {/* You still need to add the hidden input with the form name to your JSX form */}
           <input type='hidden' name='form-name' value='contact-form' />
 
           <TextField

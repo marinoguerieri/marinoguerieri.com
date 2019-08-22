@@ -51,6 +51,7 @@ import Link from '@material-ui/core/Link';
 import GithubIconImg from '../img/github-icon.svg';
 // @ts-ignore
 import LinkedInIconImg from '../img/linkedin-icon.png';
+import { string } from 'prop-types';
 
 interface CustomIconProps {
   imgUrl: string;
@@ -461,8 +462,138 @@ const MG_Theme = (props: MG_ThemeProps) => {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
+const MG_ContactForm = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    company: '',
+    message: '',
+  });
+
+  const encode = data => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  };
+
+  /* TODO: Fix types */
+  const handleChange = (input: string) => (e: object) => {
+    console.log('e.target is: ', e.target.value);
+    setFormData({ ...formData, [input]: e.target.value });
+  };
+
+  const handleSubmit = e => {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({ 'form-name': 'contact', ...formData }),
+    })
+      .then(() => alert('Success!'))
+      .catch(error => alert(error));
+
+    e.preventDefault();
+  };
+
+  return (
+    <Container
+      style={{
+        // display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 20,
+      }}
+    >
+      <Paper
+        elevation={16}
+        square={false}
+        style={{
+          borderRadius: 50,
+          padding: 20,
+        }}
+      >
+        <Typography variant='h5'>Feel free to leave me a message.</Typography>
+
+        <Typography variant='body1'>
+          Just use the contact form below or contact me directly at&nbsp;
+          <Link
+            href='mailto:marino@marinoguerieri.com'
+            color='inherit'
+            style={{ fontWeight: 500 }}
+          >
+            marino@marinoguerieri.com
+          </Link>
+          &nbsp;(it goes to my email inbox either way :-)
+        </Typography>
+
+        <form onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            required
+            id='outlined-required'
+            label='Full Name'
+            margin='normal'
+            variant='outlined'
+            value={formData.fullName}
+            onChange={handleChange('fullName')}
+          />
+          <br />
+          <TextField
+            fullWidth
+            required
+            id='outlined-required'
+            label='Email Adress'
+            margin='normal'
+            variant='outlined'
+            value={formData.email}
+            onChange={handleChange('email')}
+          />
+          <br />
+          <TextField
+            fullWidth
+            id='outlined-required'
+            label='Company'
+            margin='normal'
+            variant='outlined'
+            value={formData.company}
+            onChange={handleChange('company')}
+          />
+          <br />
+          <TextField
+            fullWidth
+            required
+            id='filled-multiline-flexible'
+            label='Message'
+            multiline
+            rows='4'
+            margin='normal'
+            variant='outlined'
+            value={formData.message}
+            onChange={handleChange('message')}
+          />
+
+          <Typography variant='subtitle2'>
+            By sending this message, I consent to collection of personal data as
+            described in Privacy Policy.
+          </Typography>
+
+          <Button
+            type='submit'
+            variant='contained'
+            color='secondary'
+            size='large'
+            fullWidth={true}
+          >
+            <SendIcon />
+            Send
+          </Button>
+        </form>
+      </Paper>
+    </Container>
+  );
+};
+
 export const IndexPageTemplate = () => {
-  const developmentMode = true;
+  const developmentMode = false;
 
   if (developmentMode) {
     return (
@@ -543,100 +674,7 @@ export const IndexPageTemplate = () => {
         <MG_Theme>
           <Box bgcolor='primary.light' height='100vh'>
             {/* ----------------- CONTACT FORM ------------------- */}
-            <Container
-              style={{
-                display: 'none', // -> SHOW/HIDE DURING DEVELOPMENT !
-                paddingLeft: 10,
-                paddingRight: 10,
-                paddingTop: 20,
-              }}
-            >
-              <Paper
-                elevation={16}
-                square={false}
-                style={{
-                  borderRadius: 50,
-                  padding: 20,
-                }}
-              >
-                <Typography variant='h5'>
-                  Feel free to leave me a message.
-                </Typography>
-
-                <Typography variant='body1'>
-                  Just use the contact form below or contact me directly
-                  at&nbsp;
-                  <Link
-                    href='mailto:marino@marinoguerieri.com'
-                    color='inherit'
-                    style={{ fontWeight: 500 }}
-                  >
-                    marino@marinoguerieri.com
-                  </Link>
-                  &nbsp;(it goes to my email inbox either way :-)
-                </Typography>
-
-                <form
-                  name='contact'
-                  method='POST'
-                  data-netlify='true'
-                  action='/notexist'
-                >
-                  <TextField
-                    fullWidth
-                    required
-                    id='outlined-required'
-                    label='Full Name'
-                    margin='normal'
-                    variant='outlined'
-                  />
-                  <br />
-                  <TextField
-                    fullWidth
-                    required
-                    id='outlined-required'
-                    label='Email Adress'
-                    margin='normal'
-                    variant='outlined'
-                  />
-                  <br />
-                  <TextField
-                    fullWidth
-                    id='outlined-required'
-                    label='Company'
-                    margin='normal'
-                    variant='outlined'
-                  />
-                  <br />
-                  <TextField
-                    fullWidth
-                    required
-                    id='filled-multiline-flexible'
-                    label='Message'
-                    multiline
-                    rows='4'
-                    margin='normal'
-                    variant='outlined'
-                  />
-
-                  <Typography variant='subtitle2'>
-                    By sending this message, I consent to collection of personal
-                    data as described in Privacy Policy.
-                  </Typography>
-
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    color='secondary'
-                    size='large'
-                    fullWidth={true}
-                  >
-                    <SendIcon />
-                    Send
-                  </Button>
-                </form>
-              </Paper>
-            </Container>
+            <MG_ContactForm />
             {/* ----------------- /CONTACT FORM -------------------*/}
 
             {/* --------------------- MENU ------------------------*/}
